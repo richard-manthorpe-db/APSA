@@ -30,7 +30,7 @@ def deliver_json():
       left_handed=True,
     )
 
-@app.route('/pulldags', methods=['POST'])
+@app.route('/pullapsa', methods=['POST'])
 def handle_bitbucket_hook():
 # """ Entry point for bitbucket webhook """
 #  signature = request.headers.get('X-Hub-Signature')
@@ -39,14 +39,13 @@ def handle_bitbucket_hook():
 #  secret = str.encode('asecretpassphraseusebygithubwebhook')
 #  hashhex = hmac.new(secret, request.data, digestmod='sha1').hexdigest()
 #  if hmac.compare_digest(hashhex, signature):
-  repo = Repo('/home/eqops_dev/airflow/dags')
+  repo = Repo('/home/mantri/APSA')
   origin = repo.remotes.origin
   origin.pull('--force')
   #commit = request.json['after'][0:6]
   commit = request.json
   print('Repository updated with commit {}'.format(commit))
   return jsonify({}), 200
-
 
 @app.route('/json1')
 def deliver_json1():
