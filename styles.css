@@ -1,0 +1,286 @@
+/* style.css*/
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    background: 
+    linear-gradient(45deg, rgba(153, 102, 255, 0.7), rgba(102, 204, 255, 0.7));
+    /* Background gradient with transparency */
+    color: #fff;
+    /* Main text color */
+}
+
+.sidebar {
+    width: 70px;
+    /* Initial width only for icons */
+    background: rgba(255, 255, 255, 0.3);
+    /* Light background with transparency */
+    padding: 20px;
+    transition: width 0.3s ease;
+    color: #090909;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    position: relative;
+}
+
+.sidebar:hover {
+    width: 250px;
+    /* Expanded width on hover */
+}
+
+.sidebar h2 {
+    color: #090909;
+    /* Black text color */
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 18px; 
+    font-weight: 600;
+    padding: 8px 16px; 
+    margin: 0 0 6px;
+
+}
+
+.sidebar h2 span {
+    display: none;
+    /* Initially hide text */
+}
+
+.sidebar h2:hover span {
+    display: inline;
+    /* Display text on hover */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #121010;
+    /* Black text color */
+    display: flex;
+    align-items: center;
+}
+
+.sidebar ul li a:hover {
+    color: #0f0f0f;
+    /* Darker black text color on hover */
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar ul li a span {
+    display: none;
+    /* Initially hide text */
+}
+
+.sidebar ul li a:hover span {
+    display: inline;
+    /* Display text on hover */
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.header h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    /* White header text color */
+}
+
+.content-section {
+    background: rgba(255, 255, 255, 0.3);
+    /* Solid background with transparency */
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center align content */
+}
+
+.gfg-logo {
+    height: 150px;
+    width: 150px;
+    margin-bottom: 20px;
+    border:1px solid black;
+}
+
+.content-section h2 {
+    color: #fff;
+    /* White section title color */
+    margin-bottom: 10px;
+}
+
+.content-section p {
+    color: #fff;
+    /* White paragraph text color */
+}
+
+
+.sidebar .menu-root,
+.sidebar .submenu {
+  list-style: none; margin: 0; padding: 0;
+}
+.sidebar .menu-root > li > a,
+.sidebar .submenu-toggle {
+    margin-left: auto;
+    justify-content: space-between;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: inherit;       /* same font as sidebar */
+    font-size: inherit;         /* same size */
+    font-weight: inherit;       /* same weight */
+    color: inherit;             /* same text color */
+    background: transparent;    /* remove button background */
+    border: 0;               /* remove button border */
+    display: flex;              /* keep icon + text aligned */
+    align-items: right;
+    gap: 10px;                  /* same spacing as links */
+    width: 100%;                /* full width like <a> */
+    padding: 10px 16px;         /* same padding as links */
+    cursor: pointer;            /* Keep icon and text spacing consistent */
+    text-align: right;
+    flex: 1;
+  }
+  
+.sidebar .menu-root > li > a:hover,
+.sidebar .submenu-toggle:hover,
+.sidebar .submenu a:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.sidebar .submenu-toggle span {
+    display: none;
+}
+
+.sidebar .has-submenu:hover .submenu-toggle span {
+    display: inline;
+    text-align: right;
+    align-items: right;
+    border: 1; 
+}
+  
+/* icon + label alignment */
+.sidebar a i:first-child,
+.sidebar .submenu-toggle i:first-child {
+  width: 22px; text-align: right;
+}
+.sidebar .chevron {
+  margin-left: auto; opacity: .7; font-size: 12px;
+}
+/* --- popup submenu --- */
+.submenu {
+  position: absolute;              /* pop out */
+  left: 100%;                      /* to the right of parent li */
+  top: 0;                          /* aligned with parent toggle */
+  min-width: 220px;
+  background: rgba(255, 255, 255, 0.3);             /* slightly darker panel */
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+  display: none;                   /* hidden by default */
+  z-index: 1000;
+}
+.has-submenu { position: relative; }        /* anchor for absolute submenu */
+
+.submenu li > a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; color: #e5e7eb; text-decoration: none;
+  border-radius: 6px;
+}
+
+/* show when .open is set by JS or when hovered (desktop) */
+.has-submenu.open > .submenu,
+.has-submenu:hover > .submenu {
+  display: block;
+}
+
+/* nested flyout (optional) – offset to the right of first submenu */
+.submenu.nested {
+  left: calc(100% + 6px);
+  top: 0;
+}
+
+/* small screens: make submenu overlay nicely and not overflow off-screen */
+@media (max-width: 800px) {
+  .submenu { left: 10px; right: 10px; top: auto; position: fixed; margin-top: 8px; }
+  .has-submenu:hover > .submenu { display: none; } /* rely on click/touch on mobile */
+}
+
+/* focus styles for keyboard users */
+.submenu-toggle:focus,
+.submenu a:focus,
+.submenu-toggle.nested:focus {
+  outline: 2px solid #22d3ee; /* cyan */
+  outline-offset: 2px;
+}
+
+/* Apply consistent styling to all top-level menu items (a and button) */
+.sidebar .menu-root > li > a,
+.sidebar .menu-root > .has-submenu > .submenu-toggle {
+    display: flex; /* Use flexbox for powerful alignment */
+    align-items: center; /* Vertically center icon, text, and chevron */
+    width: 100%; /* Make them fill the entire width of their parent list item */
+    padding: 10px 15px; /* Adjust padding to match your desired look */
+    text-align: left; /* Ensure text starts from the left */
+    box-sizing: border-box; /* Include padding in the width */
+    
+    /* Reset button specific styles */
+    background: none;
+    border: none;
+    color: inherit; /* Inherit text color from the sidebar */
+    font-size: inherit; /* Inherit font size from the sidebar */
+    cursor: pointer; /* Indicate it's clickable */
+}
+
+/* Ensure the icon has consistent spacing from the text */
+.sidebar .menu-root > li > a i.fas,
+.sidebar .menu-root > .has-submenu > .submenu-toggle i.fas:first-child {
+    margin-right: 10px;
+}
+
+/* For the "Tools" button's text, make it take up available space */
+.sidebar .menu-root > .has-submenu > .submenu-toggle span {
+    flex-grow: 1; /* Pushes the subsequent elements (like the chevron) to the right */
+}
+
+/* For the chevron icon within the "Tools" button, push it to the far right */
+.sidebar .menu-root > .has-submenu > .submenu-toggle .chevron {
+    margin-left: auto; /* This is the key to pushing it to the right */
+    transition: transform 0.3s ease; /* Keep the rotation animation */
+}
+
+/* Optional: Add hover/focus styles for consistency */
+.sidebar .menu-root > li > a:hover,
+.sidebar .menu-root > li > a:focus,
+.sidebar .menu-root > .has-submenu > .submenu-toggle:hover,
+.sidebar .menu-root > .has-submenu > .submenu-toggle:focus {
+    color: #0056b3; /* Example hover text color */
+}
+
+/* Rotate the chevron when the submenu is open */
+.sidebar .menu-root > .has-submenu.open > .submenu-toggle .chevron {
+    transform: rotate(90deg);
+}

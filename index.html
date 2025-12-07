@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Platforms Architecture Tools</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Correct Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <script>
+        (function () {
+          const sidebar   = document.querySelector('.sidebar');
+          const toggles   = sidebar.querySelectorAll('.submenu-toggle');
+      
+          function closeAll(except) {
+            sidebar.querySelectorAll('.has-submenu').forEach(li => {
+              if (li !== except) {
+                li.classList.remove('open');
+                const btn = li.querySelector('.submenu-toggle');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+              }
+            });
+          }
+      
+          toggles.forEach(btn => {
+            const li = btn.closest('.has-submenu');
+            const submenu = li.querySelector('.submenu');
+      
+            // Click / touch toggle
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              const isOpen = li.classList.toggle('open');
+              btn.setAttribute('aria-expanded', String(isOpen));
+              if (isOpen) {
+                closeAll(li);
+                // Move focus to first item for keyboard users
+                const firstItem = submenu.querySelector('a, button');
+                firstItem && firstItem.focus({ preventScroll: true });
+              }
+            });
+      
+            // Keyboard: Space/Enter to open, Esc to close
+            btn.addEventListener('keydown', (e) => {
+              if ((e.key === ' ' || e.key === 'Enter')) {
+                e.preventDefault();
+                btn.click();
+              } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (!li.classList.contains('open')) btn.click();
+              } else if (e.key === 'Escape') {
+                li.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.focus();
+              }
+            });
+      
+            // If focus leaves the submenu and the toggle, close it
+            submenu.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape') {
+                li.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.focus();
+              }
+            });
+          });
+      
+          // Click outside to close
+          document.addEventListener('click', (e) => {
+            const clickedInside = e.target.closest('.has-submenu');
+            if (!clickedInside) closeAll();
+          });
+      
+          // Optional: close on focus leaving the sidebar entirely
+          sidebar.addEventListener('focusout', (e) => {
+            // if the newly focused element is outside the sidebar
+            if (!sidebar.contains(e.relatedTarget)) closeAll();
+          });
+        })();
+      </script>
+
+</head>
+
+<body>
+       
+<aside class="sidebar">
+    <h2><i class="fas fa-bars"></i><span> Menu</span></h2>
+    <ul class="menu-root">
+      <li>
+        <a href="#"><i class="fas fa-home"></i><span> Home</span></a>
+      </li>
+  
+      <!-- Tools with popup submenu -->
+      <li class="has-submenu">
+        <!-- Use a button for accessibility to control the submenu -->
+        <button class="submenu-toggle"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="submenu-tools">
+          <i class="fas fa-cogs"></i><span> Tools</span>
+          <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+        </button>
+  
+        <!-- The fly-out submenu -->
+        <ul id="submenu-tools" class="submenu" role="menu" aria-label="Tools">
+          <li role="none">
+            <a role="menuitem" href="http://lonasdbrund2.uk.db.com:8181/"><i class="fas fa-code"></i> Technology Radar</a>
+          </li>
+          <li role="none">
+            <a role="menuitem" href="#"><i class="fas fa-bug"></i> 3 Year Plan</a>
+          </li>
+          <li role="none">
+            <a role="menuitem" href="https://db-catalogue.intranet.db.com/"><i class="fas fa-screwdriver-wrench"></i> Product Catalogue</a>
+          </li>
+          <li role="none" class="has-submenu nested">
+            <!-- nested flyout example (optional) -->
+            <button class="submenu-toggle nested"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="submenu-tools-adv">
+              <i class="fas fa-toolbox"></i> Control-Plane
+              <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+            </button>
+            <ul id="submenu-tools-adv" class="submenu nested" role="menu" aria-label="Advanced">
+              <li role="none"><a role="menuitem" href="http://lonasdbrund2.uk.db.com:8181/">Open Policy Agent</a></li>
+              <li role="none"><a role="menuitem" href="https://play.openpolicyagent.org/">Rego Playground</a></li>
+              <li role="none"><a role="menuitem" href="https://dbrun-aap.apps.ukgcpe2.eng.fabric.gcp.db.com/access/users/4/details">Ansible AAP</a></li>
+              <li role="none"><a role="menuitem" href="https://tfe.gcp.db.com/app">Terraform</a></li>
+              <li role="none"><a role="menuitem" href="https://dbservicenowdev.service-now.com/now/sow/home">dbServiceNow</a></li>
+              <li role="none"><a role="menuitem" href="#">Cloudability</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Tools with popup submenu -->
+      <li class="has-submenu">
+        <!-- Use a button for accessibility to control the submenu -->
+        <button class="submenu-toggle"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="submenu-tools">
+          <i class="fas fa-image"></i><span> Environments</span>
+          <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+        </button>
+  
+        <!-- The fly-out submenu -->
+        <ul id="submenu-tools" class="submenu" role="menu" aria-label="Environments">
+          <li role="none">
+            <a role="menuitem" href="http://lonasdbrund2.uk.db.com:8181/"><i class="fas fa-code"></i> Technology Radar</a>
+          </li>
+          <li role="none">
+            <a role="menuitem" href="#"><i class="fas fa-bug"></i> Error Logs</a>
+          </li>
+          <li role="none">
+            <a role="menuitem" href="#"><i class="fas fa-screwdriver-wrench"></i> Maintenance</a>
+          </li>
+          <li role="none" class="has-submenu nested">
+            <!-- nested flyout example (optional) -->
+            <button class="submenu-toggle nested"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls="submenu-tools-adv">
+              <i class="fas fa-toolbox"></i> Advanced
+              <i class="fas fa-chevron-right chevron" aria-hidden="true"></i>
+            </button>
+            <ul id="submenu-tools-adv" class="submenu nested" role="menu" aria-label="Advanced">
+              <li role="none"><a role="menuitem" href="#">Profiling</a></li>
+              <li role="none"><a role="menuitem" href="#">Feature Flags</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#"><i class="fas fa-envelope"></i><span> Contact</span></a>
+      </li>
+      <!-- Additional Sidebar Items -->
+      <li>
+        <a href="https://deutschebank.sharepoint.com/sites/AutomationPlatformsArchitecture"><i class="fas fa-info-circle"></i><span> About Us</span></a>
+      </li>
+      <li>
+        <a href="#"><i class="fas fa-user"></i><span> Profile</span></a>
+      </li>
+    </ul>
+  </aside>
+  
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome to Automation Platforms Architecture Tools</h1>
+        </div>
+        <div class="content-section">
+            <img src="AP Logo.png" alt="Automation Platforms Logo" title="Welcome to Automation Platforms Architecture Tooling" class="gfg-logo" border="1">
+            <h2>About Automation Platforms Architecture Tools</h2>
+            <p>
+                Automation Platforms Architecture Tools exist to provide a consistent, streamlined and transparent approach to architecture in Automation Platforms.              </p>
+        </div>
+    </div>
+</body>
+</html>
