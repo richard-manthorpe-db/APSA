@@ -1,0 +1,28 @@
+
+{
+    "portfolio": "GTI Automation Platforms",
+    "program": "Hybrid Cloud / Legacy Exit",
+    "horizon":1,
+    "items": [
+      {"id":"OBS-00123","name":"Nimsoft","type":"Observability","currentPlatform":"Nimsoft","targetPlatform":"New Relic","action":"replace","weight":30,"status": "planned","start": "2026-07-01","finish": "2026-12-31"},
+      {"id":"OBS-00124","name":"DB Discovery","type":"Observability","currentPlatform":"NRI","targetPlatform":"New Relic","action":"replace","weight":20,"status": "in-flight","start": "2025-10-01","finish": "2026-03-31"},
+      {"id":"OBS-00124","name":"Geneos","type":"Observability","currentPlatform":"Geneos","targetPlatform":"New Relic","action":"replace","weight":20,"status": "planned","start": "2025-10-01","finish": "2027-03-31"},
+  
+      {"id":"AUTO-00458","name":"ATOS AAP","type":"Automation","currentPlatform":"AAP (VDI Instance)","targetPlatform":"dbAnsible","action":"replace","weight":8,"status": "in-flight","start": "2025-10-01","finish": "2026-03-31"},
+      {"id":"AUTO-00459","name":"dbRUN","type":"Automation","currentPlatform":"AAP (Operations Instance)","targetPlatform":"dbAnsible","action":"modernise","weight":8,"status": "planned","start": "2026-01-01","finish": "2027-03-31"},
+      {"id":"AUTO-00457","name":"dbDOES","type":"Automation","currentPlatform":"AAP (Configuration Instance)","targetPlatform":"dbAnsible","action":"modernise","weight":8,"status": "planned","start": "2026-01-01","finish": "2027-03-31"},
+      
+      {"id":"WLA-00222","name":"Control-M","type":"Automation","currentPlatform":"BMC Control-M","targetPlatform":"Airflow","action":"replace","weight":8,"status": "planned","start": "2026-04-01","finish": "2029-03-31"},
+      {"id":"WLA-00459","name":"Automic UC4","type":"Automation","currentPlatform":"Broadcom Automic UC4","targetPlatform":"Airflow","action":"replace","weight":8,"status": "planned","start": "2026-04-01","finish": "2029-03-31"},
+      {"id":"WLA-00457","name":"Tivoli Workload Scheduler","type":"Automation","currentPlatform":"IBM Tivoli Workload Scheduler","targetPlatform":"Airflow","action":"replace","weight":8,"status": "planned","start": "2026-02-01","finish": "2026-09-30"},
+
+      {"id":"SNOW-00222","name":"Application Repository","type":"Automation","currentPlatform":"NAR Application Repository","targetPlatform":"dbServiceNow","action":"replace","weight":8,"status": "planned","start": "2026-01-01","finish": "2026-12-31"},
+      {"id":"SNOW-00222","name":"Authorised Software","type":"Automation","currentPlatform":"TechDirect","targetPlatform":"dbServiceNow","action":"replace","weight":8,"status": "in-flight","start": "2025-10-01","finish": "2026-06-31"},
+      {"id":"SNOW-00222","name":"Tech Roadmap Compliance","type":"Automation","currentPlatform":"TRC Portal","targetPlatform":"dbServiceNow","action":"replace","weight":8,"status": "planned","start": "2025-10-01","finish": "2026-06-31"},
+      {"id":"SNOW-00222","name":"Business Continuity","type":"Automation","currentPlatform":"DR Portal","targetPlatform":"dbServiceNow","action":"replace","weight":8,"status": "planned","start": "2026-03-01","finish": "2026-12-31"},
+      {"id":"SNOW-00222","name":"ITSM","type":"Automation","currentPlatform":"dbUnity1","targetPlatform":"dbServiceNow","action":"replace","weight":8,"status": "in-flight","start": "2025-10-01","finish": "2027-03-31"},
+      {"id":"SNOW-00222","name":"ITRM","type":"Automation","currentPlatform":"dbUnity2","targetPlatform":"dbServiceNow","action":"replace","weight":8,"status": "planned","start": "2025-10-01","finish": "2027-03-31"}
+      
+    ]  
+  }
+  

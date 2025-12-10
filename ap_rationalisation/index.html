@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rationalisation Dashboard – Sankey + Gantt</title>
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../header.css">
+
+  <!-- Frappe Gantt CSS (primary: jsDelivr; secondary: local copy if you later add it) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.css" onerror="this.onerror=null; this.href='frappe-gantt.css';" />
+</head>
+<body>
+ 
+    <header>
+        <div id="header"></div>
+        <script>
+          fetch('../header.html')
+            .then(response => response.text())
+            .then(html => {
+              document.getElementById('header').innerHTML = html;
+            });
+        </script>
+    <h1>Rationalisation Flow & Timeline</h1>
+    <div class="meta">
+      Data loaded from <code>config.json</code>. Sankey: <em>currentPlatform → targetPlatform</em>. Gantt: item timelines.
+    </div>
+  </header>
+
+
+
+
+  <main>
+    <section id="controls">
+      <label>View mode
+        <select id="viewMode">
+          <option value="count" selected>By item count</option>
+          <option value="weight">By weight (if provided)</option>
+        </select>
+      </label>
+      <button id="reload">Reload config.json</button>
+      <span id="summary" class="push-right"></span>
+    </section>
+
+    <section id="sankeySection" aria-label="Sankey">
+      <h2 class="section-title">Sankey – From ➜ To (Consolidation)</h2>
+      <div id="chart">
+        <div id="error"></div>
+      </div>
+      <div class="legend" id="legend"></div>
+    </section>
+
+    <section id="ganttSection" aria-label="Gantt">
+      <h2 class="section-title">Gantt – Rationalisation Timeline</h2>
+      <div id="gantt"></div>
+      <div id="ganttFallbackNote" class="note" style="display:none;">
+        
+      </div>
+    </section>
+  </main>
+
+  <!-- D3 and d3-sankey -->
+  <script src="https://unpkg.com/d3@7"></script>
+  <script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+
+  <!-- Try Frappe Gantt via jsDelivr; if that fails, we’ll use a D3 fallback -->
+  <script>
+    (function tryLoadFrappeGantt(){
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/frappe-gantt/dist/frappe-gantt.min.js';
+      script.async = true;
+      script.onload = () => { window.__FRAPPE_OK__ = true; };
+      script.onerror = () => { window.__FRAPPE_OK__ = false; };
+      document.head.appendChild(script);
+    })();
+  </script>
+
+  <!-- App script -->
+  <script>
+  (function(){
+    const chartEl = document.getElementById('chart');
+    const errorEl = document.getElementById('error');
+    const legendEl = document.getElementById('legend');
+    const summaryEl = document.getElementById('summary');
+    const viewSel = document.getElementById('viewMode');
+    const ganttEl = document.getElementById('gantt');
+    const ganttFallbackNote = document.getElementById('ganttFallbackNote');
+
+    document.getElementById('reload').addEventListener('click', loadAndRender);
+    viewSel.addEventListener('change', () => renderSankey());
+
+    const palette = d3.schemeTableau10.concat(["#ffd166","#ef476f","#06d6a0","#118ab2","#8ecae6"]);
+    let globalCfg = null;
+
+    async function loadConfig(){
+      const res = await fetch('config.json', {cache:'no-cache'});
+      if (!res.ok) throw new Error(`Could not load config.json (HTTP ${res.status})`);
+      const cfg = await res.json();
+      if (!Array.isArray(cfg.items)) throw new Error('config.json must contain { items: [...] }');
+      return cfg;
+    }
+
+    function buildSankeyData(cfg, mode){
+      const map = new Map();
+      let total = 0;
+      for (const it of cfg.items){
+        const from = (it.currentPlatform || it.source || 'Unknown').trim();
+        const to   = (it.targetPlatform || it.target || 'Unknown').trim();
+        const key = `${from}__${to}`;
+        const w = mode==='weight' ? Number(it.weight || 0) : 1;
+        const inc = (isFinite(w) && w > 0) ? w : 1;
+        map.set(key, (map.get(key) || 0) + inc);
+        total += inc;
+      }
+      const names = new Set();
+      map.forEach((_,k) => { const [a,b] = k.split('__'); names.add(a); names.add(b); });
+      const nodes = Array.from(names).map(name => ({ name }));
+      const idx = new Map(nodes.map((n,i) => [n.name,i]));
+      const links = Array.from(map.entries()).map(([k,value]) => {
+        const [s,t] = k.split('__');
+        return { source: idx.get(s), target: idx.get(t), value };
+      });
+      return { nodes, links, total };
+    }
+
+    function renderSankey(){
+      if (!globalCfg) return;
+
+      const mode = viewSel.value;
+      const {nodes, links, total} = buildSankeyData(globalCfg, mode);
+
+      chartEl.innerHTML = '';
+      legendEl.innerHTML = '';
+      errorEl.classList.remove('show');
+
+      const W = Math.max(chartEl.clientWidth, 800);
+      const H = Math.max(chartEl.clientHeight, 520);
+
+      const svg = d3.select('#chart').append('svg')
+        .attr('viewBox', `0 0 ${W} ${H}`)
+        .attr('preserveAspectRatio','xMidYMid meet');
+
+      const g = svg.append('g');
+
+      const sankeyGen = d3.sankey().nodeWidth(18).nodePadding(12).extent([[8,8],[W-8,H-8]]);
+      const graph = sankeyGen({
+        nodes: nodes.map(d => Object.assign({}, d)),
+        links: links.map(d => Object.assign({}, d))
+      });
+
+      const linkColor = d => palette[d.target.index % palette.length];
+      const nodeColor = d => palette[d.index % palette.length];
+
+      g.append('g').attr('fill','none').selectAll('path')
+        .data(graph.links)
+        .join('path')
+        .attr('class','link')
+        .attr('d', d3.sankeyLinkHorizontal())
+        .attr('stroke', linkColor)
+        .attr('stroke-width', d => Math.max(1, d.width))
+        .append('title')
+        .text(d => `${graph.nodes[d.source.index].name} → ${graph.nodes[d.target.index].name}\n${d.value}`);
+
+      const node = g.append('g').selectAll('g')
+        .data(graph.nodes)
+        .join('g')
+        .attr('class','node');
+
+      node.append('rect')
+        .attr('x', d=>d.x0).attr('y', d=>d.y0)
+        .attr('width', d=>d.x1-d.x0).attr('height', d=>Math.max(1, d.y1-d.y0))
+        .attr('fill', nodeColor)
+        .append('title').text(d=>`${d.name}: ${d.value}`);
+
+      node.append('text')
+        .attr('x', d=>d.x0 - 6)
+        .attr('y', d=> (d.y1 + d.y0) / 2)
+        .attr('dy','0.35em')
+        .attr('text-anchor','end')
+        .text(d=>d.name)
+        .filter(d=> d.x0 < W/2)
+        .attr('x', d=> d.x1 + 6)
+        .attr('text-anchor','start');
+
+      const targets = graph.nodes.filter(n => graph.links.some(l => l.target.index === n.index));
+      targets.forEach(t => {
+        const pill = document.createElement('span');
+        pill.className = 'pill';
+        const sw = document.createElement('span'); sw.className = 'swatch';
+        sw.style.background = palette[t.index % palette.length];
+        const label = document.createElement('span'); label.textContent = t.name;
+        pill.appendChild(sw); pill.appendChild(label);
+        legendEl.appendChild(pill);
+      });
+
+      summaryEl.textContent = `Total flows: ${total}`;
+    }
+
+    // ---- Frappe Gantt primary renderer ----
+    function renderFrappeGantt(cfg){
+      const tasks = cfg.items
+        .filter(it => it.start && it.finish)
+        .map(it => ({
+          id: it.id || `${it.currentPlatform}-${it.targetPlatform}`,
+          name: `${it.name || it.currentPlatform} → ${it.targetPlatform}`,
+          start: it.start,
+          end: it.finish,
+          progress: it.status === 'complete' ? 100 : it.status === 'in-flight' ? 60 : 0,
+          custom_class: it.action || 'replace'
+        }))
+        .sort((a,b) => new Date(a.start) - new Date(b.start));
+
+      ganttEl.innerHTML = '';
+      if (tasks.length === 0){
+        ganttEl.innerHTML = '<div class="empty">No tasks with start/end dates found in config.json</div>';
+        return;
+      }
+
+      const wrap = document.createElement('div');
+      wrap.id = 'gantt-wrap';
+      ganttEl.appendChild(wrap);
+
+      new Gantt('#gantt-wrap', tasks, {
+        view_mode: 'Month',
+        custom_popup_html: (task) =>
+          `<div class="gpopup"><strong>${task.name}</strong>` +
+          `<div><b>Start:</b> ${task.start}</div>` +
+          `<div><b>End:</b> ${task.end}</div>` +
+          `<div><b>Progress:</b> ${task.progress}%</div></div>`
+      });
+
+      // 👉 draw the red “today” line on the Frappe SVG
+      drawTodayLine(tasks, document.querySelector('#gantt-wrap svg'));
+
+    }
+
+    // ---- D3 fallback Gantt (runs if Frappe can’t be loaded) ----
+    function renderFallbackGantt(cfg){
+      ganttFallbackNote.style.display = 'block';
+      const tasks = cfg.items
+        .filter(it => it.start && it.finish)
+        .map(it => ({
+          id: it.id,
+          name: `${it.name || it.currentPlatform} → ${it.targetPlatform}`,
+          start: new Date(it.start),
+          end: new Date(it.finish),
+          action: it.action || 'replace',
+          status: it.status || 'planned'
+        }))
+        .sort((a,b) => a.start - b.start);
+
+      ganttEl.innerHTML = '';
+      const W = Math.max(ganttEl.clientWidth, 900);
+      const ROW = 28, PAD = 80, H = PAD + tasks.length * ROW + 40;
+
+      const svg = d3.select('#gantt').append('svg')
+        .attr('viewBox', `0 0 ${W} ${H}`)
+        .attr('preserveAspectRatio','xMidYMid meet');
+
+      const minDate = d3.min(tasks, d => d.start);
+      const maxDate = d3.max(tasks, d => d.end);
+      const x = d3.scaleTime().domain([minDate, maxDate]).range([220, W-30]);
+
+      // axis
+      const axis = d3.axisBottom(x).ticks(8);
+      svg.append('g').attr('transform', `translate(0, ${H-30})`).call(axis).selectAll('text').attr('fill','#9aa0a6');
+
+      // rows
+      const g = svg.append('g').attr('transform', `translate(0, ${PAD - 40})`);
+      const color = d => d.action === 'replace' ? '#2f9e44' : d.action === 'rehost' ? '#1c7ed6' : '#d9480f';
+
+      g.selectAll('text')
+        .data(tasks)
+        .join('text')
+        .attr('x', 12)
+        .attr('y', (_,i) => i*ROW + 15)
+        .attr('fill', '#e5e9f0')
+        .attr('font-size', 12)
+        .text(d => d.name);
+
+      g.selectAll('rect')
+        .data(tasks)
+        .join('rect')
+        .attr('x', d => x(d.start))
+        .attr('y', (_,i) => i*ROW + 3)
+        .attr('width', d => Math.max(4, x(d.end) - x(d.start)))
+        .attr('height', ROW - 6)
+        .attr('rx', 4)
+        .attr('fill', color)
+        .append('title')
+        .text(d => `${d.name}\n${d.start.toISOString().slice(0,10)} → ${d.end.toISOString().slice(0,10)} (${d.action})`);
+
+        
+      // 👉 draw the red “today” line on the fallback SVG
+      drawTodayLine(tasks.map(t => ({
+        start: t.start.toISOString().slice(0,10),
+        finish: t.end.toISOString().slice(0,10)
+      })), svg.node());
+
+    }
+
+    
+/* -------- NEW: drawTodayLine() shared by both Gantt renderers -------- */
+function drawTodayLine(tasks, svgEl){
+      if (!svgEl || !tasks || tasks.length === 0) return;
+
+      // Parse dates
+      const parse = s => new Date(s);
+      const min = tasks.reduce((m,t)=> !m || parse(t.start) < m ? parse(t.start) : m, null);
+      const max = tasks.reduce((m,t)=> !m || parse(t.finish) > m ? parse(t.finish) : m, null);
+      if (!min || !max) return;
+
+      // “Today” in the user's timezone (London; same as GMT in December)
+      const today = new Date(); // uses local TZ
+
+      // SVG viewBox width to map time → x
+      const vb = (svgEl.getAttribute('viewBox') || `0 0 ${svgEl.clientWidth||900} ${svgEl.clientHeight||400}`).split(/\s+/);
+      const vbW = Number(vb[2]) || (svgEl.clientWidth || 900);
+
+      // Frappe left margin for the time scale is ~ 220px; match our fallback scale
+      const left = 220, right = vbW - 30;
+
+      const tClamped = Math.min(Math.max(today.getTime(), min.getTime()), max.getTime());
+      const x = left + ( (tClamped - min.getTime()) / (max.getTime() - min.getTime()) ) * (right - left);
+
+      // Remove previous line if present
+      const prev = svgEl.querySelector('.today-line');
+      if (prev) prev.remove();
+
+      // Draw line covering whole chart area
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', x);
+      line.setAttribute('x2', x);
+      line.setAttribute('y1', 0);
+      line.setAttribute('y2', svgEl.viewBox?.baseVal?.height || (svgEl.clientHeight || 400));
+      line.setAttribute('class', 'today-line');
+      svgEl.appendChild(line);
+
+      // Optional: label at the top
+      const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+      label.setAttribute('x', x + 6);
+      label.setAttribute('y', 16);
+      label.setAttribute('class', 'today-label');
+      label.textContent = 'Today';
+      svgEl.appendChild(label);
+    }
+
+    async function loadAndRender(){
+      try{
+        globalCfg = await loadConfig();
+        renderSankey();
+
+        // Decide which Gantt to use
+        setTimeout(() => {
+          if (window.__FRAPPE_OK__ && typeof Gantt === 'function') {
+            renderFrappeGantt(globalCfg);
+          } else {
+            renderFallbackGantt(globalCfg);
+          }
+        }, 200);
+      }catch(err){
+        console.error(err);
+        errorEl.textContent = err.message + '\nEnsure config.json is present and has { items: [...] }';
+        errorEl.classList.add('show');
+      }
+    }
+
+    // Initial load
+    loadAndRender();
+
+    // Re-render Sankey on container resize; for the today line, re-draw if the SVG changes size
+    const ro = new ResizeObserver(() => renderSankey());
+    ro.observe(chartEl);
+  })();
+  </script>
+</body>
+</html>
+

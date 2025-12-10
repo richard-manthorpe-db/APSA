@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Automation Platforms Rationalisation – Sankey</title>
+  <link rel="preconnect" href="https://unpkg.com"/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>Rationalisation Flow (From ➜ To)</h1>
+    <div class="meta">Loads <code>config.json</code> and aggregates items by <em>currentPlatform → targetPlatform</em> with optional weighting</div>
+  </header>
+  <main>
+    <div id="controls">
+      <label>View mode
+        <select id="viewMode">
+          <option value="count" selected>By item count</option>
+          <option value="weight">By weight (if provided)</option>
+        </select>
+      </label>
+      <button id="reload">Reload config.json</button>
+      <span id="summary" style="margin-left:auto;color:var(--muted)"></span>
+    </div>
+    <div id="chart">
+      <div id="error"></div>
+    </div>
+    <div class="legend" id="legend"></div>
+  </main>
+
+  <!-- D3 and Sankey (correct script tags) -->
+  <script src="https://unpkg.com/d3@7"></script>
+  <script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+
+  <script>
+  (function(){
+    const chartEl = document.getElementById('chart');
+    const errorEl = document.getElementById('error');
+    const legendEl = document.getElementById('legend');
+    const summaryEl = document.getElementById('summary');
+    const viewSel = document.getElementById('viewMode');
+    document.getElementById('reload').addEventListener('click', loadAndRender);
+    viewSel.addEventListener('change', loadAndRender);
+
+    // Colors for targets
+    const palette = d3.schemeTableau10.concat(["#ffd166","#ef476f","#06d6a0","#118ab2","#8ecae6"]);
+
+    async function loadConfig(){
+      const res = await fetch('config.json', {cache:'no-cache'});
+      if(!res.ok) throw new Error(`Could not load config.json (HTTP ${res.status})`);
+      const cfg = await res.json();
+      if(!Array.isArray(cfg.items)) throw new Error('config.json must contain { items: [...] }');
+      return cfg;
+    }
+
+    function buildSankeyData(cfg, mode){
+      // Aggregate items by currentPlatform -> targetPlatform
+      const map = new Map();
+      let total = 0;
+      for(const it of cfg.items){
+        const from = (it.currentPlatform || it.source || 'Unknown').trim();
+        const to   = (it.targetPlatform || it.target || 'Unknown').trim();
+        const key = `${from}__${to}`;
+        const w = mode==='weight' ? Number(it.weight || 0) : 1;
+        const v = (map.get(key) || 0) + (isFinite(w) && w>0 ? w : 1);
+        map.set(key, v);
+        total += (isFinite(w) && w>0 ? w : 1);
+      }
+      // Nodes (unique names)
+      const nodeNames = new Set();
+      map.forEach((v,k)=>{ const [a,b]=k.split('__'); nodeNames.add(a); nodeNames.add(b); });
+      const nodes = Array.from(nodeNames).map(name=>({name}));
+      const nameToIndex = new Map(nodes.map((n,i)=>[n.name,i]));
+      const links = Array.from(map.entries()).map(([k,value])=>{
+        const [s,t] = k.split('__');
+        return { source: nameToIndex.get(s), target: nameToIndex.get(t), value };
+      });
+      return {nodes, links, total};
+    }
+
+    function renderSankey({nodes, links, total}){
+      // Clear
+      chartEl.innerHTML = '';
+      legendEl.innerHTML = '';
+      errorEl.classList.remove('show');
+
+      const W = Math.max(chartEl.clientWidth, 800);
+      const H = Math.max(chartEl.clientHeight, 520);
+
+      const svg = d3.select('#chart').append('svg')
+        .attr('viewBox', `0 0 ${W} ${H}`)
+        .attr('preserveAspectRatio','xMidYMid meet');
+
+      const g = svg.append('g');
+
+      // Colour nodes by whether they are targets (give them a colour)
+      const sankeyGen = d3.sankey()
+        .nodeWidth(18)
+        .nodePadding(12)
+        .extent([[8, 8], [W-8, H-8]]);
+
+      const graph = sankeyGen({
+        nodes: nodes.map(d=>Object.assign({}, d)),
+        links: links.map(d=>Object.assign({}, d))
+      });
+
+      // For colour mapping, use target node index AFTER layout
+      const linkColor = d => palette[d.target.index % palette.length];
+      const nodeColor = d => palette[d.index % palette.length];
+
+      // Links (now correctly coloured using d.target.index)
+      g.append('g').attr('fill','none').selectAll('path')
+        .data(graph.links)
+        .join('path')
+        .attr('class','link')
+        .attr('d', d3.sankeyLinkHorizontal())
+        .attr('stroke', linkColor)
+        .attr('stroke-width', d => Math.max(1, d.width))
+        .append('title')
+        .text(d => `${graph.nodes[d.source.index].name} → ${graph.nodes[d.target.index].name}\n${d.value}`);
+
+      // Nodes
+      const node = g.append('g').selectAll('g')
+        .data(graph.nodes)
+        .join('g')
+        .attr('class','node');
+
+      node.append('rect')
+        .attr('x', d=>d.x0).attr('y', d=>d.y0)
+        .attr('width', d=>d.x1-d.x0).attr('height', d=>Math.max(1, d.y1-d.y0))
+        .attr('fill', nodeColor)
+        .append('title').text(d=>`${d.name}: ${d.value}`);
+
+      node.append('text')
+        .attr('x', d=>d.x0 - 6)
+        .attr('y', d=> (d.y1 + d.y0) / 2)
+        .attr('dy','0.35em')
+        .attr('text-anchor','end')
+        .text(d=>d.name)
+        .filter(d=> d.x0 < W / 2)
+        .attr('x', d=> d.x1 + 6)
+        .attr('text-anchor','start');
+
+      // Legend (targets only)
+      const targets = graph.nodes.filter(n => graph.links.some(l=>l.target.index === n.index));
+      targets.forEach(t => {
+        const pill = document.createElement('span');
+        pill.className = 'pill';
+        const sw = document.createElement('span');
+        sw.className = 'swatch';
+        sw.style.background = palette[t.index % palette.length];
+        const label = document.createElement('span');
+        label.textContent = t.name;
+        pill.appendChild(sw); pill.appendChild(label);
+        legendEl.appendChild(pill);
+      });
+
+      summaryEl.textContent = `Total flows: ${total}`;
+    }
+
+    async function loadAndRender(){
+      try{
+        const cfg = await loadConfig();
+        const mode = viewSel.value;
+        const data = buildSankeyData(cfg, mode);
+        renderSankey(data);
+      }catch(err){
+        console.error(err);
+        errorEl.textContent = err.message + '\nEnsure config.json is present and has { items: [...] }';
+        errorEl.classList.add('show');
+      }
+    }
+
+    // Initial load
+    loadAndRender();
+
+    // Resize observer for responsiveness
+    const ro = new ResizeObserver(()=>loadAndRender());
+    ro.observe(chartEl);
+  })();
+  </script>
+</body>
+</html>
+
