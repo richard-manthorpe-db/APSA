@@ -1,0 +1,135 @@
+/* === Reusable header styles === */
+:root {
+    --org-header-radius: 12px;
+    --org-header-padding: 10px 14px;
+    --org-header-height: 64px;
+    --org-gradient: linear-gradient(
+      45deg,
+      rgba(153, 102, 255, 0.7),
+      rgba(102, 204, 255, 0.7)
+    );
+    --org-text: #0f172a;          /* slate-900 */
+    --org-text-contrast: #0b1020; /* slightly darker for contrast */
+    --org-bg: #ffffff;
+    --org-shadow: 0 6px 20px rgba(15, 23, 42, 0.12);
+    --org-ring: 0 0 0 3px rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Optional dark mode */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --org-text: #e6edf3;
+      --org-text-contrast: #f2f5f8;
+      --org-bg: #0b1020;
+      --org-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+  }
+  
+  .org-header {
+    box-sizing: border-box;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+  
+    height: var(--org-header-height);
+    padding: var(--org-header-padding);
+  
+    /* Gradient background with subtle glass effect */
+    background: var(--org-gradient), var(--org-bg);
+    backdrop-filter: saturate(120%) blur(2px);
+  
+    /* Curved corners + shadow */
+    border-radius: var(--org-header-radius);
+    box-shadow: var(--org-shadow);
+  
+    /* Constrain width on wide screens while keeping full-width on small */
+    margin: 12px auto;
+    width: min(1200px, 94%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+  
+  /* Make it sticky (optional). Remove if not desired. */
+  .org-header {
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+  }
+  
+  /* Logo */
+  .org-logo-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--org-header-height) - 16px);
+    height: calc(var(--org-header-height) - 16px);
+    border-radius: 10px;
+    text-decoration: none;
+    outline: none;
+  }
+  .org-logo-link:focus-visible {
+    box-shadow: var(--org-ring);
+  }
+  .org-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
+  }
+  
+  /* Title block */
+  .org-title {
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    color: var(--org-text);
+    line-height: 1.1;
+  }
+  .org-title__name {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.2px;
+    color: var(--org-text-contrast);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .org-title__env {
+    font-weight: 500;
+    font-size: 0.85rem;
+    opacity: 0.85;
+  }
+  
+  /* Right-side actions */
+  .org-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .org-action {
+    --btn-bg: rgba(255, 255, 255, 0.8);
+    --btn-fg: #0f172a;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: var(--btn-fg);
+    background: var(--btn-bg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+  }
+  .org-action:hover {
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  /* Responsive tweaks */
+  @media (max-width: 640px) {
+    :root {
+      --org-header-height: 56px;
+    }
+    .org-title__env {
+      display: none; /* hide secondary label on very small screens */
+    }
+  }

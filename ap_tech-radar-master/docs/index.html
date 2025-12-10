@@ -10,11 +10,20 @@
 
   <script src="./d3.v7.min.js"></script>
   <script src="./radar.js"></script>
-
   <link rel="stylesheet" href="radar.css">
+  <link rel="stylesheet" href="../../header.css">
 </head>
 
 <body>
+ 
+<div id="header"></div>
+<script>
+  fetch('../../header.html')
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('header').innerHTML = html;
+    });
+</script>
 
   <svg id="radar"></svg>
 

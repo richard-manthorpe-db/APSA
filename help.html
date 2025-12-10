@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help & Support</title>
+  <link rel="stylesheet" href="header.css">
+  <style>
+    :root {
+      --gradient-bg: linear-gradient(45deg, rgba(153, 102, 255, 0.7), rgba(102, 204, 255, 0.7));
+      --text-color: #0f172a;
+      --card-bg: #ffffff;
+      --radius: 12px;
+      --shadow: 0 6px 20px rgba(15, 23, 42, 0.12);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f8fafc;
+      color: var(--text-color);
+    }
+
+    header.help-header {
+      background: var(--gradient-bg);
+      padding: 20px;
+      text-align: center;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 20px auto;
+      width: min(1200px, 94%);
+    }
+
+    header.help-header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    main {
+      width: min(1200px, 94%);
+      margin: 20px auto;
+      display: grid;
+      gap: 20px;
+    }
+
+    .help-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .help-section h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: #4b5563;
+    }
+
+    ul.faq-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul.faq-list li {
+      margin-bottom: 12px;
+    }
+
+    ul.faq-list li strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #374151;
+    }
+
+    .contact-links a {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 8px 12px;
+      background: rgba(153, 102, 255, 0.15);
+      color: #4b5563;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .contact-links a:hover {
+      background: rgba(102, 204, 255, 0.25);
+    }
+  </style>
+</head>
+<body>
+    <header class="org-header" role="banner">
+    <a class="org-logo-link" href="/" aria-label="Go to home">
+        <!-- Replace src with your icon path or inline an SVG -->
+        <img src="AP Logo.png" alt="Automation Platforms Architecture Tools Home" class="org-logo" />
+      </a>
+    
+      <div class="org-title">
+        <span class="org-title__name">Automation Platforms Architecture Tools Help</span>
+        <span class="org-title__env">Internal</span>
+      </div>
+    </header>
+  <main>
+    <!-- FAQ Section -->
+    <section class="help-section">
+      <h2>Frequently Asked Questions</h2>
+      <ul class="faq-list">
+        <li>
+          <strong>How do I reset my password?</strong>
+          Go to the Account Settings page and click **Reset Password**.
+        </li>
+        <li>
+          <strong>Where can I find user guides?</strong>
+          Visit the Documentation section under Resources.
+        </li>
+        <li>
+          <strong>Who do I contact for technical issues?</strong>
+          Use the Contact Support links below.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="help-section">
+      <h2>Contact Support</h2>
+      <p>If you need further assistance, reach out through one of these channels:</p>
+      <div class="contact-links">
+        <a href="mailto:support@yourorg.com">Email Support</a>
+        <a href="/chat-support">Live Chat</a>
+        <a href="/ticket">Submit a Ticket</a>
+      </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="help-section">
+      <h2>Quick Links</h2>
+      <ul>
+        <li><a href="/docs">Documentation</a></li>
+        <li><a href="/training">Training Resources</a></li>
+        <li><a href="/status">System Status</a></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
