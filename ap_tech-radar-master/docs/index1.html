@@ -2,81 +2,58 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-  <meta name="description" content="Automation Platforms Tech Radar: a tool to visualize platform lifecycle strategy.">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title id="mytitle">Automation Platforms Tech Radar (Current)</title>
-  <link rel="shortcut icon" href="./favicon.ico">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="description" content="Automation Platforms Tech Radar: a tool to visualize platform lifecycle strategy.">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Automation Platforms Tech Radar (Horizon 1)</title>
+<link rel="shortcut icon" href="./favicon.ico">
 
-  <script src="./d3.v7.min.js"></script>
-  <script src="./radar.js"></script>
+<script src="./d3.v7.min.js"></script>
+<script src="./radar.js"></script>
 
-  <link rel="stylesheet" href="radar.css">
+<link rel="stylesheet" href="radar.css">
 </head>
 
 <body>
 
-  <svg id="radar"></svg>
+<svg id="radar"></svg>
 
-  <script>
-    // Helper: read "horizon" from the query string
-    const params = new URLSearchParams(window.location.search);
-    const horizonParam = params.get('horizon'); // expected values: undefined | "1" | "2"
+<script>
 
-    // Resolve which config file and title suffix to use
-    let configFile = './config.json';
-    let titleSuffix = 'Current';
-
-    if (horizonParam === '1') {
-      configFile = './config1.json';
-      titleSuffix = 'Horizon 1';
-    } else if (horizonParam === '2') {
-      configFile = './config2.json';
-      titleSuffix = 'Horizon 2';
-    } // any other value (including missing) keeps defaults
-
-    // Update the page title in both <title> and document.title
-    const finalTitle = `Automation Platforms Tech Radar (${titleSuffix})`;
-    document.title = finalTitle;
-    const titleEl = document.getElementById('mytitle');
-    if (titleEl) titleEl.textContent = finalTitle;
-
-    // Load the chosen config and render
-    fetch(configFile)
-      .then((response) => {
-        if (!response.ok) throw new Error(`Failed to load ${configFile}: ${response.status}`);
-        return response.json();
-      })
-      .then((data) => {
-        // Assuming your config*.json matches radar.js expected schema
-        radar_visualization(data);
-      })
-      .catch((err) => {
-        console.error(err);
-        // Fallback if config fails
-        radar_visualization({
-          svg_id: 'radar',
-          width: 1450,
-          height: 1000,
-          title: `Fallback Radar (${configFile} failed)`,
-          quadrants: [
-            { name: 'Bottom Right' },
-            { name: 'Bottom Left'  },
-            { name: 'Top Left'     },
-            { name: 'Top Right'    },
-          ],
-          rings: [
-            { name: 'INNER',  color: '#5ba300' },
-            { name: 'SECOND', color: '#009eb0' },
-            { name: 'THIRD',  color: '#c7ba00' },
-            { name: 'OUTER',  color: '#e09b96' },
-          ],
-          entries: [{ label: 'Fallback Entry', quadrant: 3, ring: 2, moved: -1 }]
-        });
-      });
-  </script>
-
-
+fetch('./config1.json')
+  .then((response) => {
+    if (!response.ok) throw new Error(`Failed to load config.json: ${response.status}`);
+    return response.json();
+  })
+  .then((data) => {
+    // Assuming your config.json already contains the full radar config
+    // with keys expected by radar-0.12 (svg_id, width, height, quadrants, rings, entries, etc.)
+    radar_visualization(data);
+  })
+  .catch((err) => {
+    console.error(err);
+    // Optional: fallback if config fails
+    radar_visualization({
+      svg_id: 'radar',
+      width: 1450,
+      height: 1000,
+      title: 'Fallback Radar (config.json failed)',
+      quadrants: [
+        { name: 'Bottom Right' },
+        { name: 'Bottom Left'  },
+        { name: 'Top Left'     },
+        { name: 'Top Right'    },
+      ],
+      rings: [
+        { name: 'INNER',  color: '#5ba300' },
+        { name: 'SECOND', color: '#009eb0' },
+        { name: 'THIRD',  color: '#c7ba00' },
+        { name: 'OUTER',  color: '#e09b96' },
+      ],
+      entries: [{ label: 'Fallback Entry', quadrant: 3, ring: 2, moved: -1 }]
+    });
+  });
+</script>
 
 
 

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="description" content="Zalando Tech Radar: a tool to visualize technology choices, inspire and support Engineering teams at Zalando to pick the best technologies for new projects">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zalando Tech Radar</title>
+<link rel="shortcut icon" href="https://www.zalando.de/favicon.ico">
+
+<script src="./d3.v7.min.js"></script>
+<script src="./radar.js"></script>
+
+<link rel="stylesheet" href="radar.css">
+</head>
+
+<body>
+
+<svg id="radar"></svg>
+
+<script>
+
+fetch('./config.json')
+  .then((response) => {
+    if (!response.ok) throw new Error(`Failed to load config.json: ${response.status}`);
+    return response.json();
+  })
+  .then((data) => {
+    // Assuming your config.json already contains the full radar config
+    // with keys expected by radar-0.12 (svg_id, width, height, quadrants, rings, entries, etc.)
+    radar_visualization(data);
+  })
+  .catch((err) => {
+    console.error(err);
+    // Optional: fallback if config fails
+    radar_visualization({
+      svg_id: 'radar',
+      width: 1450,
+      height: 1000,
+      title: 'Fallback Radar (config.json failed)',
+      quadrants: [
+        { name: 'Bottom Right' },
+        { name: 'Bottom Left'  },
+        { name: 'Top Left'     },
+        { name: 'Top Right'    },
+      ],
+      rings: [
+        { name: 'INNER',  color: '#5ba300' },
+        { name: 'SECOND', color: '#009eb0' },
+        { name: 'THIRD',  color: '#c7ba00' },
+        { name: 'OUTER',  color: '#e09b96' },
+      ],
+      entries: [{ label: 'Fallback Entry', quadrant: 3, ring: 2, moved: -1 }]
+    });
+  });
+</script>
+
+
+
+<table>
+<tr>
+<td>
+
+<h3>What is the Tech Radar?</h3>
+
+<p>
+The Automation Platforms Tech Radar is a list of technologies, complemented by an assessment result, called <em>ring assignment</em>. We use four rings with the following semantics:
+</p>
+
+<ul>
+<li><strong>PLANNED</strong>
+  <br><i>Description:</i> Product is in planning stage, preparing for launch.
+  <br><i>Investment Expectation:</i> Business case agreed; funding sought via RTB or IG process for CTB.
+  <br><i>Key Actions:</i> Architecture reviews, demand planning, capacity alignment..</li>
+<li><strong>BUY</strong> 
+  <br><i>Description:</i> Newly launched product with strong adoption growth.
+  <br><i>Investment Expectation:</i> Delivery of agreed business case, often includes new functionality and migration from retiring options.
+  <br><i>Key Actions:</i> Enable all environments (DEV, UAT, PROD); drive adoption.</li>
+<li><strong>HOLD</strong>
+  <br><i>Description:</i> Mature product where adoption has plateaued.
+  <br><i>Investment Expectation:</i> Optimize for stability and cost efficiency; maintain relevance.
+  <br><i>Key Actions:</i> Reduce unit cost, maintain TRC compliance, patch compliance.
+</li>
+<li><strong>SELL</strong>
+  <br><i>Description:</i> Product is legacy or obsolete; adoption declining.
+  <br><i>Investment Expectation:</i> No new consumers; actively migrate existing consumers to strategic alternatives.
+  <br><i>Key Actions:</i> Retirement plans integrated into product strategies and roadmaps; TRC and patch compliance maintained until decommission.
+</li>
+</ul>
+
+</td><td>
+
+<h3>What is the purpose?</h3>
+
+<p>
+The Tech Radar is a tool to inspire and support Engineering teams at Deutsche Bank to pick the best technologies for new projects; it provides a platform to share knowledge and experience in technologies, to reflect on technology decisions and continuously evolve our technology landscape. Based on the <a href="https://www.thoughtworks.com/radar">pioneering work of ThoughtWorks</a>, our Tech Radar sets out the changes in technologies that are interesting in software development &mdash; changes that we think our engineering teams should pay attention to and use in their projects.
+</p>
+
+<h3>How do we maintain it?</h3>
+
+<p>
+The Tech Radar is maintained by our <em>Domain Architects, Portfolio and Product Owners</em> &mdash; who facilitate and drive the technology selection discussions at Deutsche Bank across the Engineering Community. Assignment of technologies to rings is the outcome of ring change proposals, which are discussed and voted on. The Tech Radar is open for contribution for all Engineering teams at Deutsche Bank and depends on their active participation to share lessons learned, pitfalls, and contribute to good practices on using the technologies.<br/>
+</p>
+
+</td></tr>
+</table>
+
+</body>
+</html>
