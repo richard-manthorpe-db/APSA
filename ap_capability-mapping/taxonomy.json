@@ -1,0 +1,1640 @@
+[
+    {
+      "RefCode": "CM0_001",
+      "Level0": "Compute",
+      "Level1s": [
+        {
+          "Ref": "CM1_038",
+          "Level1": "Physical Compute",
+          "Level2s": [
+            {
+              "Level2": "x86 Servers",
+              "ID": "CM2_201",
+              "Description": "An x86 server is a computer that uses an x86 central processing unit (CPU) architecture.\n\nThis includes Bare-Metal-as-a-Service, which leverages the pooling of Bare Metal resources to streamline efficiency of data centers."
+            },
+            {
+              "Level2": "x86 Appliances",
+              "ID": "CM2_202",
+              "Description": "X86 appliances could be hardware device or systems built around x86-based processors.X86 appliances can be either physical machines or virtualized instances. Used in scenarios such as firewall protection, load balancing, network monitoring and server management."
+            },
+            {
+              "Level2": "Special Hardware Components",
+              "ID": "CM2_203",
+              "Description": "Special Hardware Components are unique or advances physical elements within a Physical system. These components differ from the standard hardware, for example, graphics processing units (GPUs)."
+            },
+            {
+              "Level2": "Hardware Management",
+              "ID": "CM2_204",
+              "Description": "Practices involved in maintaining, optimizing and overseeing physical computing resources"
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_039",
+          "Level1": "Operating Systems",
+          "Level2s": [
+            {
+              "Level2": "Operating System",
+              "ID": "CM2_205",
+              "Description": "A system software that manages computer hardware, software resources, and provides common services for computer programs. This will include mobile, desktop, tablet, laptop etc.."
+            },
+            {
+              "Level2": "Managed Images",
+              "ID": "CM2_206",
+              "Description": "Pre configured or standardized templates with specific software settings or configurations of an Operating system. Helps in provisioning and streamlining."
+            },
+            {
+              "Level2": "OS Clustering",
+              "ID": "CM2_207",
+              "Description": "Configuration and Management of multiple servers working together as a singe system to provide High Availability, Load balancing, Failover support, scalability, Resource sharing."
+            },
+            {
+              "Level2": "HPC/Grid Computing",
+              "ID": "CM2_208",
+              "Description": "Computing Paradigms designed to solve complex resource-intensive issues by leveraging the power of multiple interconnected computers."
+            },
+            {
+              "Level2": "System Software",
+              "ID": "CM2_209",
+              "Description": "Collection of programs and utilities that manages software resources, manages computer hardware and provide services for application software. Essential in managing and coordination hardware and software resources"
+            },
+            {
+              "Level2": "System Management",
+              "ID": "CM2_210",
+              "Description": "Set of tools and Processes used in controlling, monitoring and optimizing the performance of the Operating system.Involes Ensures the operation of hardware and software enabling multitasking and maintaining the overall system health and security."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_040",
+          "Level1": "Enterprise Virtualization & Containerization",
+          "Level2s": [
+            {
+              "Level2": "Virtual Machine",
+              "ID": "CM2_211",
+              "Description": "Enterprise Virtualization focuses on creating multiple virtual environments on a single physical server to optimize resource. In Containerized environments, Virtual machine plays a supporting role especially in hybrid deployments."
+            },
+            {
+              "Level2": "Virtualization Platform",
+              "ID": "CM2_212",
+              "Description": "Virtualization Platform encompasses the orchestration, management, and monitoring of virtualized environments.\n\nThis includes the Hypervisor that enables the creation, management and operation of Virtual Machines. Hypervisor ensures a flexible and robust infrastructure, and optimizes resources utilization ensuring scalability."
+            },
+            {
+              "Level2": "Container Platform",
+              "ID": "CM2_213",
+              "Description": "Container Platform encompasses the orchestration, monitoring, governance, security, automation and management of containerized applications.\n\nContainer instances enable developers to deploy containers without having to provision or manage any underlying infrastructure.\n\nContainer Management ensures the efficient deployment, scaling, operation and orchestrating of containers. Dockers, Kubernetes, OpenShift, Google GKE etc. are some of the Container management tools."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_041",
+          "Level1": "Serverless Compute",
+          "Level2s": [
+            {
+              "Level2": "Function as a Service",
+              "ID": "CM2_215",
+              "Description": "Allows to build, deploy and run application code without managing the underlying infrastructure eg. Cloud Run, Knative, etc."
+            },
+            {
+              "Level2": "Application Servers",
+              "ID": "CM2_216",
+              "Description": "Environment that allocated resources to Deploying, running and managing applications with out directly managing any infrastructure.\n\neg. DAP, dWEB"
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_042",
+          "Level1": "Heritage Platforms",
+          "Level2s": [
+            {
+              "Level2": "Heritage Hardware",
+              "ID": "CM2_217",
+              "Description": "Heritage hardware with support for example, Mainframe, Midrange, etc."
+            },
+            {
+              "Level2": "Heritage Operating Systems",
+              "ID": "CM2_218",
+              "Description": "Heritage operating systems with support for example, AIX and AS400, etc..stems"
+            },
+            {
+              "Level2": "Heritage Virtualization",
+              "ID": "CM2_219",
+              "Description": "Heritage virtualization technologies with support."
+            },
+            {
+              "Level2": "Heritage Clustering",
+              "ID": "CM2_220",
+              "Description": "Heritage clustering technologies with support."
+            },
+            {
+              "Level2": "Heritage System Management",
+              "ID": "CM2_221",
+              "Description": "Heritage tools and processes with support."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_002",
+      "Level0": "Data Services",
+      "Level1s": [
+        {
+          "Ref": "CM1_004",
+          "Level1": "Database",
+          "Level2s": [
+            {
+              "Level2": "Key Value Store",
+              "ID": "CM2_028",
+              "Description": "The key value store is a type of nonrelational database that uses a simple key-value method to store data as a collection of key-value pairs in which a key serves as a unique identifier. Both the keys and values can be of any type, ranging from simple objects to complex compound objects. Key-value stores are typically highly partitionable to allow horizontal scaling at scales that other types of databases cannot achieve."
+            },
+            {
+              "Level2": "Relational",
+              "ID": "CM2_029",
+              "Description": "The relational database capability covers all related information systems that store data as a collection of data items with pre-defined relationships between them. This data can be accessed in different ways, typically via SQL without reorganising the database tables themselves."
+            },
+            {
+              "Level2": "Document",
+              "ID": "CM2_030",
+              "Description": "A document-oriented database is a data storage system designed for storing, retrieving and managing document-oriented information, typically known as semi-structured data. These are one of the main categories of NoSQL databases that eliminate the need for object-relational mapping when loading data into the database."
+            },
+            {
+              "Level2": "Graph",
+              "ID": "CM2_031",
+              "Description": "A graph database is a database that uses graph structures for semantic queries with nodes, edges, and properties to represent and store data. These relationships allow data in the store to be linked together directly making them inherently NoSQL structures."
+            },
+            {
+              "Level2": "Distributed Ledger",
+              "ID": "CM2_032",
+              "Description": "A distributed or distributed ledger technology (DLT) is a consensus of replicated, shared, and synchronised digital data, typically geographically spread across multiple sites, countries or institutions. There is usually no central administrator and a peer-to-peer network is required as well as consensus algorithms to ensure replication across nodes is undertaken. An example of a distributed ledger design is the blockchain system, which can be either public or private."
+            },
+            {
+              "Level2": "Time Series",
+              "ID": "CM2_045",
+              "Description": "A time series database is a system optimised for storing and serving time series data, usually being composed of a timestamp and associated data. Time series may be called profiles, curves, traces or trends. These datasets are typically large and uniform, hence, in many cases they utilize compression algorithms to manage the data efficiently. The unique properties of time series datasets mean that time series databases can provide significant improvements in storage space and performance over general purpose databases. They can also be configured to regularly delete old data, unlike regular databases which are generally designed to store data indefinitely."
+            },
+            {
+              "Level2": "Wide Column",
+              "ID": "CM2_046",
+              "Description": "A wide-column store (or extensible record store) is a type of NoSQL database utilising tables, rows, and columns, but unlike a relational database, the names and format of the columns can vary from row to row in the same table. A wide-column store can be interpreted as a two-dimensional key–value store. Wide-column stores such as Bigtable and Apache Cassandra are not column stores in the original sense of the term, since their two-level structures do not use a columnar data layout. In genuine column stores, a columnar data layout is adopted such that each column is stored separately on disk. Wide-column stores do often support the notion of column families that are stored separately. However, each such column family typically contains multiple columns that are used together, similar to traditional relational database tables. Within a given column family, all data is stored in a row-by-row fashion, such that the columns for a given row are stored together, rather than each column being stored separately."
+            },
+            {
+              "Level2": "Columnar",
+              "ID": "CM2_047",
+              "Description": "A column-oriented or columnar database management system stores data tables by column rather than by row. Benefits include more efficient access to data when only querying a subset of columns, by eliminating the need to read columns that are not relevant, and more options for data compression. However, they are typically less efficient for inserting new data.\n\n- Practical use of a column store versus a row store differs little in the relational database world. Both columnar and row databases can use traditional database query languages like SQL to load data and perform queries. Both row and columnar databases can become the backbone in a system to serve data for common extract, transform, load (ETL) and tools."
+            },
+            {
+              "Level2": "OLTP",
+              "ID": "CM2_147",
+              "Description": "OLTP or Online Transaction Processing is a type of data processing that consists of executing a number of transactions occurring concurrently. It enables the real-time execution of large numbers of database transactions by large numbers of people, typically over the internet. Many everyday acts involve OLTP, including online banking, online shopping and even in-store shopping when the point of sale (POS) terminal is tied to inventory management software."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_005",
+          "Level1": "Data Governance",
+          "Level2s": [
+            {
+              "Level2": "Data Catalogue",
+              "ID": "CM2_033",
+              "Description": "The data catalogue capability comprises systems that aim to provide a data reference for users to search and find data assets that they would like to use, manage or understand. It may optionally include or point to a data dictionary that typically provides a lower level of technical detail including lineage."
+            },
+            {
+              "Level2": "Data Quality",
+              "ID": "CM2_034",
+              "Description": "The data quality capability comprises tools that is designed to improve the accuracy, completeness, relevance, and/or consistency of an organisation's data. Most data quality tools fall into one of three general categories: Data Cleansing, Data Auditing and Data Migration systems."
+            },
+            {
+              "Level2": "Data Discovery",
+              "ID": "CM2_035",
+              "Description": "The data discovery (aka data mining) capability comprises tools that are designed to collect and combine data from multiple sources and identify patterns and trends in them. Data preparation, data modelling, visual analysis and advanced statistical analysis are also typically the key functions of data discovery."
+            },
+            {
+              "Level2": "Data Lineage",
+              "ID": "CM2_036",
+              "Description": "This capability contains tools that support data lineage analysis. Data lineage is the process of understanding the complete lifecycle of data from start to finish, recording, and visualizing data as it flows from data sources to consumption. This includes all of the transformations that the data underwent along the way, how it was transformed, what changed, and why. Combined with data discovery and a comprehensive view of metadata a data mapping framework can be created to help users make sure their data is coming from a trusted source, has been transformed correctly, and loaded to the specified location."
+            },
+            {
+              "Level2": "Data Profiling",
+              "ID": "CM2_038",
+              "Description": "The Data profiling capability comprises processes for analysing data available from an existing sources and collecting information and statistics. The purpose may be manyfold but typically it is to assess its quality and whether it may be usefully re-used elsewhere. It may also be analysed for standards or patterns. Profiling helps to not only understand anomalies and assess data quality but also to discover, register, and assess enterprise metadata."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_006",
+          "Level1": "Data Caching",
+          "Level2s": [
+            {
+              "Level2": "In Memory Cache",
+              "ID": "CM2_037",
+              "Description": "The in-memory cache capability comprises technologies that provide a high-speed data storage layer that typically sits between applications and databases to deliver fast responses by storing key data from earlier requests or copied directly from databases.This includes SAP HANA and databases."
+            },
+            {
+              "Level2": "Key Value Cache",
+              "ID": "CM2_142",
+              "Description": "Key-value stored are often used for in-memory data caching to accelerate application responss. This in memory key value database caching mechanism for configuration, based on keys or frequently accessed date, is ideal for applications that don’t need to support complex queries or require frequent updates."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_007",
+          "Level1": "Bus Intelligence",
+          "Level2s": [
+            {
+              "Level2": "Data Visualisation",
+              "ID": "CM2_039",
+              "Description": "The data visualisation capability encompasses BI Tools that collect and process large amounts of data from internal and external systems used to prepare data for analysis, reports, dashboards, and data visualisation generally. Typically used for straightforward querying and general reporting of business data."
+            },
+            {
+              "Level2": "Enterprise Reporting",
+              "ID": "CM2_040",
+              "Description": "The enterprise reporting capability encompasses reporting tools used for enterprise wide reporting and may be specific to a type of information e.g. Tax. These tools often combine operational metrics and in-depth analytics with business intelligence (BI) techniques to drive business decisions."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_008",
+          "Level1": "Analytics",
+          "Level2s": [
+            {
+              "Level2": "Stream Analytics",
+              "ID": "CM2_041",
+              "Description": "The stream analytics capability encompasses systems that processing and analyse data continuously rather than in batches. Typically used to process high volumes of fast streaming data from multiple sources simultaneously where patterns and relationships can be identified. These patterns may be used to trigger actions and initiate workflows such as creating alerts, feeding information to a reporting tool, or storing transformed data for later use."
+            },
+            {
+              "Level2": "Data Science tools",
+              "ID": "CM2_043",
+              "Description": "The data science tools capability refers to applications used to apply advanced data analytics techniques and scientific principles to extract valuable information and insight from data to understand performance and enable business decision-making and strategic planning."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_009",
+          "Level1": "Analytics",
+          "Level2s": [
+            {
+              "Level2": "Document Management",
+              "ID": "CM2_048",
+              "Description": "Document Management is a subset of Enterprise Content Management (ECM), focusing on capturing, organizing, storing, and managing the lifecycle of documents. Document Management is designed to facilitate access to documents, ensure their confidentiality and integrity."
+            },
+            {
+              "Level2": "Content Capture",
+              "ID": "CM2_140",
+              "Description": "Within the ECM context, content capture refers to the services and systems used to capture, manage, store, preserve information captured from either physical or electronic documents for subsequent analysis."
+            },
+            {
+              "Level2": "Document Archive",
+              "ID": "CM2_141",
+              "Description": "Document archiving relates to services that store historical documents for extended periods of time such that they may be searched and subsequently retrieved as required for analysis."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_025",
+          "Level1": "AIML",
+          "Level2s": [
+            {
+              "Level2": "Data Analytics",
+              "ID": "CM2_143",
+              "Description": "It is the process of inspecting, cleaning, and modeling data to discover useful information and support decision-making. It includes data visualization, statistical analysis, and exploratory data analysis (EDA). Some of the activities that could be involved in Data Analysis are Data Exploration and Data Insights."
+            },
+            {
+              "Level2": "Data Engineering",
+              "ID": "CM2_151",
+              "Description": "It involves the collection, transformation, and preparation of raw data for analysis and machine learning. It includes the processes of ETL, data warehousing and building data pipelines to ensure data is accessible and usable. Some of the activities that could be involved in Data Engineering are Data Ingestion & Discovery, Data Generation, Data pre-processing, Data Storage, Data Cataloguing."
+            },
+            {
+              "Level2": "Model Development",
+              "ID": "CM2_152",
+              "Description": "It involves creating, training, and validating machine learning models. It encompasses the use of various frameworks, libraries, and platforms to experiment with different algorithms and techniques. Some of the activities that could be involved in Model Development are Feature Engineering, Model Training of products, hardware accelerators & hyperparameter optimization, Model Evaluation. It could also involve some of the activities which can again be used in ML Engineering such as Feature store, Model Catalogue and Model Registry."
+            },
+            {
+              "Level2": "ML Engineering",
+              "ID": "CM2_153",
+              "Description": "It involves creating, training, and validating machine learning models. It encompasses the use of various frameworks, libraries, and platforms to experiment with different algorithms and techniques. Some of the activities that could be involved in Model Development are Feature Engineering, Model Training of products, hardware accelerators & hyperparameter optimization, Model Evaluation. It could also involve some of the activities which can again be used in ML Engineering such as Feature store, Model Catalogue and Model Registry."
+            },
+            {
+              "Level2": "ML Orchestration",
+              "ID": "CM2_154",
+              "Description": "It involves managing and automating machine learning workflows and pipelines, ensuring smooth and efficient operation from data ingestion to model deployment and monitoring. Some of the activities involved in Orchestration could be Data Pipelines, General orchestration tools, ML Pipelines, Release Management, ML Documentation."
+            },
+            {
+              "Level2": "Managed Generative AI Services",
+              "ID": "CM2_155",
+              "Description": "Managed Gen AI services are the platforms that provide businesses with the tools and infrastructure needed to develop, deploy, and manage generative AI models. It includes features like, Model Training and Fine-Tuning, Model Monitoring and Maintenance also support integration of AI models into existing systems and workflows."
+            },
+            {
+              "Level2": "Generative AI Large Language Models",
+              "ID": "CM2_156",
+              "Description": "LLMs are powerful tools designed to understand and generate human-like text. Gen AI models can handle multiple modalities, including text, images, videos, and audio. These models support features like, classification, summarization, customization though model tuning. These models can also be integrated with other GCP services."
+            },
+            {
+              "Level2": "Speech Processing",
+              "ID": "CM2_157",
+              "Description": "Speech Processing refers to converting spoken language into text and vice versa. Converting multilanguage audios in various forms to text in real-time or from pre-recorded files. It also includes converting text into natural-sounding speech. Its translation feature transcribes and translates audio in real-time, making it possible to convert spoken language into another language instantly."
+            },
+            {
+              "Level2": "Chatbot Generative and Transactional",
+              "ID": "CM2_158",
+              "Description": "These chatbots leverage advanced AI capabilities to provide natural, human-like interactions and handle various tasks. a) Generative chatbots use Large Language Models (LLMs) to generate human-like text based on the input they receive. Generative capabilities can be integrated with Dialogflow, allowing for the creation of lifelike conversational agents. These agents can handle complex interactions and provide detailed responses based on the user’s input.\n\nb) Transactional chatbots are designed to handle specific tasks and transactions, such as booking appointments, processing orders, or providing customer support. For example, a chatbot can integrate with a calendar API to schedule appointments or with a payment gateway to process transactions."
+            },
+            {
+              "Level2": "Document Processing",
+              "ID": "CM2_159",
+              "Description": "Document processing in Google Cloud Platform (GCP) is facilitated through Document AI. It converts scanned images and PDFs into machine-readable text. Which is useful for digitizing books, forms, and other documents. It supports features like Entity Recognition, Key-Value Pair Extraction, Splitting and Merging. It can also be integrated with other GCP services."
+            },
+            {
+              "Level2": "Natural Language Processing",
+              "ID": "CM2_160",
+              "Description": "It in Google Cloud Platform (GCP) leverages advanced AI tools to analyze and understand human language. Key components are Sentiment Analysis, Syntax Analysis, Content Classification. AutoML Natural Language allows custom model training for the tasks like text classification and entity extraction."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_003",
+      "Level0": "Security Services",
+      "Level1s": [
+        {
+          "Ref": "CM1_010",
+          "Level1": "Cryptography",
+          "Level2s": [
+            {
+              "Level2": "Certificate Management",
+              "ID": "CM2_049",
+              "Description": "Manages the life cycle of digital certificates including request, issuance, renewal, revocation using Public Key Infrastructure (PKI), a hierarchy of Certification Authorities (CA). It includes maintaining a certificate repository for governance and expiry monitoring as well as Trust Anchor (trusted root CAs) management. Certificate Management does not include management of private key of certificates, which is covered in the Key Management capability."
+            },
+            {
+              "Level2": "Cryptographic Agility",
+              "ID": "CM2_050",
+              "Description": "Cryptographic Agility is capability to switch in adequate time to alternative cryptographic primitives, protocol versions, parameters, and key lengths. This includes new algorithms not known during the initial system design and migration of existing data. It requires a Cryptography Inventory, is supported by the capabilities Key Management and Secure Coding Standards (Security Monitoring & Remediation)."
+            },
+            {
+              "Level2": "Digital Signature",
+              "ID": "CM2_051",
+              "Description": "Ensures the integrity, authenticity and non-repudiation of documents, program code (Code Signing) or other data. The capability includes creation and verification of signatures and relies on the capabilities Key Management and Certificate Management."
+            },
+            {
+              "Level2": "Encryption at Rest",
+              "ID": "CM2_052",
+              "Description": "Ensures the confidentiality of stored data heavily relying on the Key Management capability to make the required encryption keys available in a secure and controlled fashion. Encryption can be implemented on different layers (user, application, database, storage), providing trade-offs between security and processing capabilities. It can provide integrity protection, e.g. in the S/MIME or PGP standard."
+            },
+            {
+              "Level2": "Encryption in Transit",
+              "ID": "CM2_053",
+              "Description": "Ensures the confidentiality of data transmission in combination with authentication (see IAM capability Authentication). It depends on the capabilities Key Management and in many instances also on Certificate Management. This capability also includes integrity protection, as protocols for encryption in transit like TLS or SSH also provide this capability. The same is true for secure email with S/MIME or PGP."
+            },
+            {
+              "Level2": "Encryption in Use",
+              "ID": "CM2_054",
+              "Description": "Ensures the confidentiality of data during processing, also called Confidential Computing. It can be based on hardware (Intel SGX, AMD SEV, ARM Trustzones) or pure cryptographic techniques (Homomorphic Encryption, Secure Multiparty Computation). It typically includes integrity protection of processing and data, sometimes supporting Attestation. It relies on the capabilities Key Management, Encryption at Rest and in Transit."
+            },
+            {
+              "Level2": "Key Management",
+              "ID": "CM2_055",
+              "Description": "Manages the life cycle of secret and private keys including generation, installation, activation, deactivation, destruction, distribution, registration, backup, recovery and renewal as well as protection of keys. It includes Bring Your Own Key (BYOK) capabilities for cloud providers and Hardware Security Modules (HSMs) for key protection. It is related the capabilities Certificate Management and Credential Management (IAM) and required for all other cryptographic capabilities."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_011",
+          "Level1": "Cyber Risk Management",
+          "Level2s": [
+            {
+              "Level2": "Control Assurance",
+              "ID": "CM2_056",
+              "Description": "Verifies that the required security controls have been integrated into the environment, and where this is not the case, the process highlights vulnerabilities and the resulting risks."
+            },
+            {
+              "Level2": "IS Governance",
+              "ID": "CM2_057",
+              "Description": "Management is a set of rules which need to be followed (policies) governing a particular activity and specific requirements, e.g.: regulations, standards, or senior management decisions, that need to be met in compliance."
+            },
+            {
+              "Level2": "IS Metrics & Reporting",
+              "ID": "CM2_058",
+              "Description": "Currently the scope of these services includes Google and Azure cloud components and on-premise DB infrastructure hardware and software systems."
+            },
+            {
+              "Level2": "Security Training & Awareness",
+              "ID": "CM2_059",
+              "Description": "Attempts to provide information on common security risks and how to avoid them as well as increase the skillset of the cybersecurity team (i.e. technical training)."
+            },
+            {
+              "Level2": "Third Party Risk Management",
+              "ID": "CM2_060",
+              "Description": "A form of risk management that focuses on identifying and reducing risks relating to the use of third parties, including vendors, suppliers, partners, contractors, or service providers."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_012",
+          "Level1": "Data Security",
+          "Level2s": [
+            {
+              "Level2": "Backup Scanning",
+              "ID": "CM2_061",
+              "Description": "Verifies that data archived in backups have not been corrupted or contain malicious entities (e.g. malware)."
+            },
+            {
+              "Level2": "Data Classification",
+              "ID": "CM2_062",
+              "Description": "Identifies the security related attributes of information assets and may be used as the basis for defining the protection requirements during all phases of the life cycle."
+            },
+            {
+              "Level2": "Data Loss Prevention",
+              "ID": "CM2_063",
+              "Description": "Encompasses protective measures, such as data exfiltration attempts, to reduce the risk of exfiltration of proprietary, sensitive, or classified information from managed systems to unmanaged. It does this through saving, downloading, or onward transmission. Measures can be implemented at the network level (data in-motion) and endpoints (data in-use, at rest)."
+            },
+            {
+              "Level2": "Drive Sanitization",
+              "ID": "CM2_064",
+              "Description": "Ensures that the risk of data remanance is significantly reduced when storage devices are decommissioned, re-purposed, or the information contained on them needs to be securely erased."
+            },
+            {
+              "Level2": "Emergency Data Termination",
+              "ID": "CM2_065",
+              "Description": "Cessation of making data available in order to limit the damage caused by an incident. This may include taking the data source offline, restricting access, encryption management or even erasure."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_013",
+          "Level1": "Endpoint Security",
+          "Level2s": [
+            {
+              "Level2": "Ad Blocking",
+              "ID": "CM2_066",
+              "Description": "A function to block advertisement on websites along with tracking scripts, tracking cookies and similar. This capability contributes to malware protection as malware droppers are frequently distributed through ads on websites."
+            },
+            {
+              "Level2": "Application Whitelisting",
+              "ID": "CM2_067",
+              "Description": "Ensures that only known and authorised (whitelisted) applications can communicate, execute processes or share data with an asset."
+            },
+            {
+              "Level2": "Baseline Configuration",
+              "ID": "CM2_068",
+              "Description": "Establishes a standard configuration of a product for all deployments, which serves as a basis for defining, detecting, and managing change."
+            },
+            {
+              "Level2": "Container Security",
+              "ID": "CM2_069",
+              "Description": "The process of implementing security tools and policies to assure protection of the container, including application and performance including infrastructure."
+            },
+            {
+              "Level2": "Device Hardening",
+              "ID": "CM2_070",
+              "Description": "Reduces the attack surface through configuration changes, disabling of unneeded functionality, and device patching."
+            },
+            {
+              "Level2": "Endpoint Detection & Response",
+              "ID": "CM2_071",
+              "Description": "A solution that records and stores endpoint-system-level behaviors, use various data analytics techniques to detect suspicious system behavior, provide contextual information, block malicious activity, and provide remediation suggestions."
+            },
+            {
+              "Level2": "File Integrity Monitoring",
+              "ID": "CM2_072",
+              "Description": "Ensures that unauthorised changes or corruption of files are detected."
+            },
+            {
+              "Level2": "Malware Scanning",
+              "ID": "CM2_073",
+              "Description": "The process of detection malware in the computer to eliminate it."
+            },
+            {
+              "Level2": "Mobile Security",
+              "ID": "CM2_074",
+              "Description": "Centralised management of the full mobile platform including the device (i.e. laptops, smartphones), operating systems, and applications."
+            },
+            {
+              "Level2": "Secure Browsing",
+              "ID": "CM2_075",
+              "Description": "Provides capabilities to access the internet from a secure environment e.g. not directly from a workstation but from a controlled, virtual machine, which will be reset after the user has finished the browsing."
+            },
+            {
+              "Level2": "Secure Print",
+              "ID": "CM2_076",
+              "Description": "Any step taken by an organisation to ensure that printing devices will remain secure and that printed or transmitted data will remain confidential."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_014",
+          "Level1": "Identity & Access Management",
+          "Level2s": [
+            {
+              "Level2": "Authentication",
+              "ID": "CM2_077",
+              "Description": "Authentication covers the verification of claimed identities through credentials that are subject to a secure management process in terms of creation/renewal, issuing/withdrawal, and effective protection during transition and at rest. It includes all type of credentials such as those based on knowledge, possession or biometric traits, used in a single or multiple factor manner, organised in a predefined or adaptive way. Additionally, it covers the ability for efficient management in a SSO environment sharing same security policy. Thus, it supports frictionless and user-friendly management processes."
+            },
+            {
+              "Level2": "Authorization",
+              "ID": "CM2_078",
+              "Description": "Authorization provides central decision-making capability to authorize user and system actions for processes, infrastructure and business applications. To support decision making the capability covers the ability to create entitlements, access roles and attributes / rules (also known as permissions) based on business respectively IT management requirements that are derived from the design phase of the SDLC process. It also covers the documentation, the management and utilisation of such permissions within the bank's application or infrastructure landscape and therefore can include various aspects of a common authorization framework, such as authorization enforcement (i.e., where permissions are located) as well as decision points (i.e., where the access decisions are made)."
+            },
+            {
+              "Level2": "Access Lifecycle Management",
+              "ID": "CM2_079",
+              "Description": "ALM is the capability to assign Identity Types (i.e., individual-, shared-, service-accounts) to individuals (according to their job roles) and to assign permissions (create, read, amend, revoke) to these accounts, for the time needed. It includes four-eyes-based request and approval, provisioning, recertification and revocation and ensures that access permissions are granted on a least-privilege basis and considering segregation-of-duty rules."
+            },
+            {
+              "Level2": "Privileged Access Management",
+              "ID": "CM2_080",
+              "Description": "Privileged Access Management is a composition of IAM and non IAM capabilities that ensures individual accountability for privileged system activities even under utilization of generic accounts. It consist of event triggered requests and approvals for a temporary and brokered access to pre-defined configuration items while all activities are recorded in order to provide a basis for verification against the original rationale."
+            },
+            {
+              "Level2": "Secrets Management",
+              "ID": "CM2_081",
+              "Description": "A method that allows developers to securely store sensitive data such as passwords, keys, and tokens (secrets), in a central, secure environment with strict access controls. Such tools reduce the risks associated with inappropriate and manual secret management."
+            },
+            {
+              "Level2": "Identity & Account Management",
+              "ID": "CM2_162",
+              "Description": "From Security services point, the Identity and Account management is the process and technologies used to manage user identities and their associated accounts securely. Only authorized users have access to systems, applications and data. The control over the user accounts is maintained throughout the process."
+            },
+            {
+              "Level2": "Multi Factor Authentication (MFA)",
+              "ID": "CM2_163",
+              "Description": "A security mechanism that requires users to provide two or more independent authentication factors to verify the identity to gain access to systems. It’s a multi-step account login process which enhances security by reducing risk of unauthorized access."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_015",
+          "Level1": "Network Security",
+          "Level2s": [
+            {
+              "Level2": "Perimeter Security",
+              "ID": "CM2_082",
+              "Description": "Analysis of and protection against potentially harmful network traffic, content or code that may be attempting to exploit the perimeter."
+            },
+            {
+              "Level2": "Network Monitoring",
+              "ID": "CM2_083",
+              "Description": "The network monitoring capability provides services that monitor network performance and availability necessary to manage these resources."
+            },
+            {
+              "Level2": "Network Policy & Governance",
+              "ID": "CM2_084",
+              "Description": "Governance and rules of conditions, constraints, and settings that allow for authorisation to connect to the network and the circumstances under which they can or cannot connect."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_016",
+          "Level1": "Security Monitoring & Remediation",
+          "Level2s": [
+            {
+              "Level2": "Anomaly Detection",
+              "ID": "CM2_085",
+              "Description": "Identification of anomalous activities on devices or over the network that fall outside of the established baseline, which may represent potential security issues."
+            },
+            {
+              "Level2": "Application Security Monitoring",
+              "ID": "CM2_086",
+              "Description": "Identification, reporting, and blocking of attempts to exploit application vulnerabilities. This includes proactively measuring the level of protection, and notifying the individuals responsible to deploy corrective measures."
+            },
+            {
+              "Level2": "Cloud Security Posture Management",
+              "ID": "CM2_087",
+              "Description": "A continuous process of cloud security improvement and adaption to reduce the likelihood of a successful attack."
+            },
+            {
+              "Level2": "Configuration Management",
+              "ID": "CM2_088",
+              "Description": "Configuration management is a process for establishing and maintaining consistency of a product's performance, functional, and physical attributes with its requirements, design, and operational information throughout its lifecycle."
+            },
+            {
+              "Level2": "Data Forensics",
+              "ID": "CM2_089",
+              "Description": "Collects and examines data during incidents to discover, secure, and analyse evidence of infiltration, infection, or fraudulent activities for further analysis and potential legal actions."
+            },
+            {
+              "Level2": "Disaster Recovery",
+              "ID": "CM2_090",
+              "Description": "Involves a set of policies, tools, and procedures to enable the recovery or continuation of vital technology infrastructure and systems following a natural or human-induced disaster (ex: cyber attack or data breach). Disaster recovery focuses on the IT or technology systems supporting critical business functions and continuity."
+            },
+            {
+              "Level2": "Incident Response",
+              "ID": "CM2_091",
+              "Description": "Responsible for responding to information security incidents affecting all business areas within the bank with an aim to restore service as quickly as possible with a minimum impact to the business and customers."
+            },
+            {
+              "Level2": "Security Defect Management",
+              "ID": "CM2_092",
+              "Description": "Collecting, recording, and analysing software security defects identified in security testing and vulnerability management activities and the steps taken for remediation."
+            },
+            {
+              "Level2": "Security Testing",
+              "ID": "CM2_093",
+              "Description": "Testing that uncovers vulnerabilities, threats, and risks in applications and infrastructure."
+            },
+            {
+              "Level2": "Threat Hunting",
+              "ID": "CM2_094",
+              "Description": "Technique of actively searching through the available data streams to find traces of advanced attackers who have (so far) evaded detection by the existing countermeasures."
+            },
+            {
+              "Level2": "Threat Intelligence",
+              "ID": "CM2_095",
+              "Description": "Evidence-based knowledge, including context, mechanisms, indicators, implications, and actionable advice about an existing or emerging menace or hazard to assets; this intelligence can be used to inform decisions regarding the subject's response to that menace or hazard."
+            },
+            {
+              "Level2": "Vulnerability Management",
+              "ID": "CM2_096",
+              "Description": "Identification and remediation of security flaw that may be exploited, e.g. analysis of application code to detect defects, vulnerabilities, bad practices, or measure code quality."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_004",
+      "Level0": "IT Services",
+      "Level1s": [
+        {
+          "Ref": "CM1_018",
+          "Level1": "ITSM",
+          "Level2s": [
+            {
+              "Level2": "Incident, Problem, Change mgmt",
+              "ID": "CM2_107",
+              "Description": "Incident management is a process used to respond to and address unplanned events that can affect service quality or service operations in real time.\n\nProblem Management seeks to and minimize the impact of incidents and problems on the business that are caused by underlying errors within the IT infrastructure and to proactively prevent the recurrence of incidents related to those errors.\n\nChange management describes the practices designed to ensure successful prioritizing, approval, scheduling, and execution of changes to IT systems."
+            },
+            {
+              "Level2": "Cost Management",
+              "ID": "CM2_108",
+              "Description": "The process of effectively planning and controlling the costs involved in a business."
+            },
+            {
+              "Level2": "Resource Management",
+              "ID": "CM2_145",
+              "Description": "The Resource management is the process of managing the usage of resources in a cloud environment. The hierarchical organization allows to easily manage common aspects of the resources such as access control and configuration settings. Resource Manager enables to programmatically manage the resource containers."
+            },
+            {
+              "Level2": "Capacity Management",
+              "ID": "CM2_148",
+              "Description": "Capacity Management is a strategy utilized by businesses to make the best use of production efficiency with respect to the demand for a service or a product. The goal is to ensure that IT resources are sufficient to meet upcoming business requirements cost-effectively. Capacity management helps to conquer challenges that arise when the need to meet customer demands be it short term or mid-term. It also helps manage the supply chain operations and develop organizational plans for the future."
+            },
+            {
+              "Level2": "IT service desk",
+              "ID": "CM2_165",
+              "Description": "A IT Service desk ensures IT services are delivered effectively and efficiently to meet the needs of organization.The purpose of IT service desk is to efficiently track, escalate and resolve incidents and service requests.. It methodically monitors and analyze trends in reported issues. It manages changes effectively"
+            },
+            {
+              "Level2": "Knowledge Management",
+              "ID": "CM2_166",
+              "Description": "Knowledge management is the process an enterprise uses to gather, organize, share and analyze its knowledge in a way that's easily accessible.\n\nA knowledge management system harnesses the collective knowledge of the organization, leading to better operational efficiencies. These systems are supported by the use of a knowledge base. They are usually critical to successful knowledge management, providing a centralized place to store information and access it readily."
+            },
+            {
+              "Level2": "Asset Management",
+              "ID": "CM2_199",
+              "Description": "IT asset management is the end-to-end tracking and management of IT assets to ensure that every asset is properly used, maintained, upgraded and disposed of at the end of its lifecycle.\n\nITAM involves using financial, contractual and inventory data to track and make strategic decisions about IT assets. The main objective is to ensure that IT resources are used efficiently and effectively. ITAM also helps optimize costs by reducing the total number of assets in use and extending the life of those assets, avoiding costly upgrades. An important part of ITAM is understanding the total cost of ownership and finding ways to optimize asset use."
+            },
+            {
+              "Level2": "Configuration Management",
+              "ID": "CM2_200",
+              "Description": "Configuration management is a process for establishing and maintaining consistency of a product's performance, functional, and physical attributes with its requirements, design, and operational information throughout its lifecycle."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_046",
+          "Level1": "Observability",
+          "Level2s": [
+            {
+              "Level2": "Logging Analytics",
+              "ID": "CM2_106",
+              "Description": "An active service that monitors, aggregates, indexes, and analyses all log data. Enabling users to search, explore, and correlate this data to troubleshoot and resolve problems faster and derive insights or prevent them."
+            },
+            {
+              "Level2": "Distributed Tracing",
+              "ID": "CM2_109",
+              "Description": "A method for IT and DevOps teams to monitor applications and address the challenges of logging information in microservices-based applications."
+            },
+            {
+              "Level2": "Audit/Logging",
+              "ID": "CM2_110",
+              "Description": "The continuous recording of data to capture a record of events and changes."
+            },
+            {
+              "Level2": "Application Profiling",
+              "ID": "CM2_111",
+              "Description": "Currently the scope of these services includes Google and Azure cloud components and on-premise DB infrastructure hardware and software systems."
+            },
+            {
+              "Level2": "Dashboards",
+              "ID": "CM2_112",
+              "Description": "A reporting mechanism that aggregates and displays metrics and key indicators so they can be examined at a glance."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_047",
+          "Level1": "Monitoring",
+          "Level2s": [
+            {
+              "Level2": "Infrastructure Monitoring",
+              "ID": "CM2_103",
+              "Description": "A function for preventing outages from escalating. It collects health and performance data from servers, virtual machines, containers, databases, and other backend components in a tech stack."
+            },
+            {
+              "Level2": "Application Monitoring",
+              "ID": "CM2_104",
+              "Description": "Application monitoring includes monitoring of the entire application stack - application framework, operating system, database, APIs, middleware, web application server and UI."
+            },
+            {
+              "Level2": "Alerting",
+              "ID": "CM2_105",
+              "Description": "Alerting is the responsive component of a monitoring system that performs actions based on changes in metric values."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_005",
+      "Level0": "Integration Platforms",
+      "Level1s": [
+        {
+          "Ref": "CM1_019",
+          "Level1": "API Management",
+          "Level2s": [
+            {
+              "Level2": "API Gateway",
+              "ID": "CM2_113",
+              "Description": "Provides a single entry point for all API requests that come into an application, routed to one or more backend services, gathers the appropriate data and delivers it to the user in a single, combined package. It can also provide analytics, layers of threat protection and other security for the application."
+            },
+            {
+              "Level2": "Service Catalogue",
+              "ID": "CM2_114",
+              "Description": "A service catalogue is the store front (or directory) of services available to the enterprise user and enables the ability to identify and request the products that are best suited to their requirement. Allows users to browse through available IT services, hardware, software, and support options."
+            },
+            {
+              "Level2": "Service Discovery",
+              "ID": "CM2_115",
+              "Description": "A technology to automatically detect services and devices on a computer network."
+            },
+            {
+              "Level2": "Service Registry",
+              "ID": "CM2_116",
+              "Description": "A database for the storage of data structures for application-level communication. It serves as a central location where app developers can register and find the schemas used for particular applications."
+            },
+            {
+              "Level2": "Service Mesh",
+              "ID": "CM2_117",
+              "Description": "A configurable, low-latency infrastructure layer designed to handle a high volume of network-based interprocess communication among application infrastructure services using application programming interfaces (APIs)."
+            },
+            {
+              "Level2": "Service Bus",
+              "ID": "CM2_146",
+              "Description": "An enterprise service bus (ESB) implements a communication system between mutually interacting software applications in a service-oriented architecture. It represents a software architecture for distributed computing and is a special variant of the more general client-server model, wherein any application may behave as server or client. An ESB promotes agility and flexibility with regard to high-level protocol communication between applications. Its primary use is in enterprise application integration of heterogeneous and complex service environments."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_020",
+          "Level1": "Integration Middleware",
+          "Level2s": [
+            {
+              "Level2": "Remote Procedure Calls",
+              "ID": "CM2_118",
+              "Description": "Provides the high-level communications paradigm used in the operating system."
+            },
+            {
+              "Level2": "Pub/Sub",
+              "ID": "CM2_119",
+              "Description": "Shorthand for publish/subscribe messaging, Pub/Sub allows services to communicate asynchronously, with latencies on the order of 100 milliseconds. Pub/Sub is used for streaming analytics and data integration pipelines to ingest and distribute data."
+            },
+            {
+              "Level2": "Scheduling",
+              "ID": "CM2_120",
+              "Description": "Action of assigning resources to perform tasks. The resources may be processors, network links or expansion cards. The tasks may be threads, processes or data flows."
+            },
+            {
+              "Level2": "Managed File Transfer",
+              "ID": "CM2_121",
+              "Description": "A platform that allows organisations to reliably exchange electronic data between systems and people in a secure, efficient and reliable manner to meet compliance needs."
+            },
+            {
+              "Level2": "Message Queuing",
+              "ID": "CM2_122",
+              "Description": "A named destination to which messages can be sent. Messages accumulate on queues until they are retrieved by programs that service those queues. Messages are stored at intermediate nodes until the system is ready to forward them. At their final destination they are stored in an electronic mailbox until the addressee is ready to read them."
+            },
+            {
+              "Level2": "Low Latency Messaging",
+              "ID": "CM2_123",
+              "Description": "Refers to the systems used in financial markets to support high-frequency trading."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_006",
+      "Level0": "Environments",
+      "Level1s": [
+        {
+          "Ref": "CM1_021",
+          "Level1": "Cloud Landing Zones",
+          "Level2s": [
+            {
+              "Level2": "Cloud Native Landing Zones",
+              "ID": "CM2_124",
+              "Description": "Refers to a landing zone where a single software instance and database serves multiple customers (i.e. tenants)."
+            },
+            {
+              "Level2": "Cloud Native Assured workloads",
+              "ID": "CM2_125",
+              "Description": "Refers to a landing zone where a single software instance and its supporting infrastructure/database serves only one customer."
+            },
+            {
+              "Level2": "Re-Host Landing Zones",
+              "ID": "CM2_126",
+              "Description": "Google Cloud landing zones that have been configured to mirror certain on-premise configurations to facilitate the early migration of applications into the GCP."
+            },
+            {
+              "Level2": "Experimental Landing Zones",
+              "ID": "CM2_127",
+              "Description": "Google Cloud landing zones that have been configured to mirror certain on-premise configurations to facilitate the early migration of applications into the GCP."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_027",
+          "Level1": "On Premise Hosting",
+          "Level2s": [
+            {
+              "Level2": "Hosting Environments",
+              "ID": "CM2_167",
+              "Description": "Hosting environment refers to the physical and virtual infrastructure within an organization’s own data center where all computing resources including servers, storage and networking are managed and maintained internally.\n\nEnterprises that requires high security, low latency and strict regulatory compliance used On premise hosting."
+            },
+            {
+              "Level2": "Data Centre Services",
+              "ID": "CM2_181",
+              "Description": "A dedicated physical facility owned and operated by an organization to house IT infrastructure including servers, storage, networking equipment and security systems. It serves as the backbone for computing, processing, and storing enterprise data within the organization’s premises."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_048",
+          "Level1": "Environment Automation",
+          "Level2s": [
+            {
+              "Level2": "Orchestration",
+              "ID": "CM2_130",
+              "Description": "Process of combined automation of apps, workloads, supporting resources, and infrastructure across one or more cloud platforms (public and/or private). It commonly includes imperative and/or declarative methods to drive automation."
+            },
+            {
+              "Level2": "Control Plane",
+              "ID": "CM2_164",
+              "Description": "A control plane consists of a set of processes, systems, and tools used to automate and orchestrate the deployment, scaling, and maintenance of platform components."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_007",
+      "Level0": "End User Compute",
+      "Level1s": [
+        {
+          "Ref": "CM1_022",
+          "Level1": "Devices",
+          "Level2s": [
+            {
+              "Level2": "Classic Devices",
+              "ID": "CM2_173",
+              "Description": "Classic Devices are traditionally on-prem managed laptops, desktops and workstation options - to be transformed into modern devices or exceptionally used for niche cases."
+            },
+            {
+              "Level2": "Device Management",
+              "ID": "CM2_174",
+              "Description": "Device Management - Products to manage and monitor end user mobile and desktop devices."
+            },
+            {
+              "Level2": "Modern Devices",
+              "ID": "CM2_175",
+              "Description": "Modern Devices are centrally, cloud managed desktops and laptops leveraging modern software distribution capabilities, that can either connect to a virtual desktop (VDI) or be used to run modern managed applications."
+            },
+            {
+              "Level2": "Mac",
+              "ID": "CM2_176",
+              "Description": "Apple laptop devices that can be used to run DB applications."
+            },
+            {
+              "Level2": "Mobile",
+              "ID": "CM2_177",
+              "Description": "Corporate and personal mobile devices and services that can be used to run DB applications in a secured and data protected manner."
+            },
+            {
+              "Level2": "Secured Access and Remote Connectivity",
+              "ID": "CM2_178",
+              "Description": "Software and infrastructure to allow secured access from corporate devices or corporate mobiles to bank hosted on-prem applications, Cloud based Services & Applications or personal devices to DB corporate virtual desktops (Zero-Trust Network Access Platforms, i.e. Secured Access Service Edge, current Platform is Z-Scaler)."
+            },
+            {
+              "Level2": "Virtual Desktop Platforms (VDI)",
+              "ID": "CM2_179",
+              "Description": "Virtual desktop and application services (VDI), hosted in the Cloud and remotely accessed via a modern managed corporate devices or private devices (Remotely accessible VDI's hosted in a DB data center are in phase out and available for a limited period)."
+            },
+            {
+              "Level2": "Application Management",
+              "ID": "CM2_180",
+              "Description": "Products and toolsets involved in the successful deployment of an approved application package to Windows, Mobile (IOS and Android) and Mac end points"
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_028",
+          "Level1": "Colloboration",
+          "Level2s": [
+            {
+              "Level2": "Compliance Capture",
+              "ID": "CM2_129",
+              "Description": "Recording of Trading and Non-Trading Unified Communications (E-Com and Voice Recording) to meet DB's legal and regulatory requirements"
+            },
+            {
+              "Level2": "Azure Services",
+              "ID": "CM2_161",
+              "Description": "Platform as a service (PaaS) offering - for hosting components to be used for MS365 services and for Cloud based VDI"
+            },
+            {
+              "Level2": "Email",
+              "ID": "CM2_168",
+              "Description": "Bank wide email service"
+            },
+            {
+              "Level2": "Power Platform",
+              "ID": "CM2_169",
+              "Description": "Microsoft Power Platform is a cloud based low-code no-code platform that spans Office 365, Azure, Dynamics 365, and standalone applications. Power Platform combines the robust power of PowerApps, Power Automate, PowerBI and Power Virtual Agents into one powerful business application platform – providing quick and easy app building and data insights. These products can be used to analyze and draw data visualizations, develop and build complex business solutions, automate a business process, or build virtual agents for communication. There are four products under the Microsoft Power Platform: Power Automate, Power Apps, Power BI & Power Virtual Agents. Out of these Power Automate & Power Apps are available in the bank. AI builder is included in this as well."
+            },
+            {
+              "Level2": "Productivity Suite",
+              "ID": "CM2_170",
+              "Description": "Productivity Suite is comprised of (1) MS Office Apps: Word, Excel, PowerPoint, Outlook (app only), OneNote, Access, and Publisher (M365 + On-prem) - for desktop, web, and mobile. (2) M365 App for mobile, (3) MS Project and MS Visio for desktop, (3) PDF read and editing tools: Nitro Pro, Adobe Reader, and Adobe Acrobat DC for desktop, and Acronis for iOS (in transition).(4) Co Pilot"
+            },
+            {
+              "Level2": "Storage & Collaboration",
+              "ID": "CM2_171",
+              "Description": "Enabling collaboration & sharing regardless of global work locations. With easy access and self-service provision, this provides productivity benefits across the bank. Strategic Products are MS SharePoint and MS OneDrive."
+            },
+            {
+              "Level2": "Unified Communications",
+              "ID": "CM2_172",
+              "Description": "Enabling DB's digital workforce to communicate, collaborate & interact flexibly through multiple internal and external channels ranging from Instant Messaging through to Deutsche Bank's AGM. The strategic enterprise Product uses Microsoft Teams, which integrates seamlessly with the Microsoft 365 suite. Within UC, Teams is supplemented by a variety of other vendor based solutions which are consumed within the Bank to satisfy a number of specific niche use cases like large video conferences or webcasts."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_029",
+          "Level1": "End User Customer Services",
+          "Level2s": [
+            {
+              "Level2": "Event",
+              "ID": "CM2_131",
+              "Description": "Event comprises the end to end management of VIP and large onsite and offsite events with or without client attendance for any format (physical, virtual and hybrid). This service covers the event preparation (consultancy, design), the event delivery (production incl. platform management) and post event activities. Further to this, video production will be an integral part to it, even when not directly related to an event. Event provides global 24 x 7 coverage with onsite support in DB's major hubs."
+            },
+            {
+              "Level2": "Direct",
+              "ID": "CM2_198",
+              "Description": "Direct is the rapid response \"we come to you\" Product within the Customer Services product range. It provides \"first level\" IT request fulfilment and technical support through an on-site team. It is only available to customers working for specific business lines in hub locations across Deutsche Bank and availability is managed on a subscription basis."
+            },
+            {
+              "Level2": "Tech Lounge",
+              "ID": "CM2_214",
+              "Description": "Tech Lounge is the strategic \"you come to us\" Product within the Customer Services product range. It provides a convenient drop-in \"first level\" IT request fulfilment and technical support through an on-site team of expert technology consultants. It is provided to hub-based users of End User technology across Deutsche Bank on a subscription basis. Features: - Drop-in access to in-house technology experts - Request fulfilment - Break/fix incident resolution - Advice on latest DB technology options."
+            },
+            {
+              "Level2": "Self Service Portals",
+              "ID": "CM2_265",
+              "Description": "Provision of self-service portals including internal and external facing, AI Chat bots and call back services for Deutsche Bank's internal technology end user support."
+            },
+            {
+              "Level2": "Device & Equipment Logistics - XaaS",
+              "ID": "CM2_266",
+              "Description": "Xaas is a bundled logistics and support service for End User hardware, covering 3 areas.\n\nDevice – Products include Laptops, Mobile Phones and Tablets incl Headsets, Keyboards and Mouse.\n\nWorkspace – Products include Monitors, Docking Stations, Keyboard, Mouse and Webcams.\n\nMeeting Rooms – Products cover small, medium, large and extra-large conference rooms with in-built AV systems including installation and (on-prem) support."
+            },
+            {
+              "Level2": "dbPremier",
+              "ID": "CM2_267",
+              "Description": "Updated Name as per RITM10266798.\n\nProvides white glove first line technical support and enhanced IT consultancy for Deutsche Bank VIPs. This is a user subscription-based option enabling holistic consultancy and rapid incident and request fulfilment management. The option is only available to DB's MB, SB member and their offices incl. investor/press facing functions (IR, Comms)."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_049",
+          "Level1": "Trading, Regulatory & Consumption",
+          "Level2s": [
+            {
+              "Level2": "Enterprise Voice",
+              "ID": "CM2_269",
+              "Description": "Enterprise Voice offers traditional telephone functionality with calls carried over the internal bank network. It also offers intelligent routing to provide the least cost options to international calls off the db network. Additional functionality includes a soft phone, which allows for remote work using a software application to make and receive calls. The current Avaya setup will be available for limited time and users strategically onboarded to Unified Communications - MS Teams."
+            },
+            {
+              "Level2": "Enterprise Voice - Local",
+              "ID": "CM2_270",
+              "Description": "Enterprise Voice Local offers traditional (IP-) telephone functionality as local standalone solution or as satellite of a centrally hosted system."
+            },
+            {
+              "Level2": "Enterprise Voice Consumption",
+              "ID": "CM2_271",
+              "Description": "Carrier Costs associated to external voice calls initiated from Desk phone or MS-Team"
+            },
+            {
+              "Level2": "Mobile Voice Consumption",
+              "ID": "CM2_272",
+              "Description": "Costs associated to corporate mobile phone."
+            },
+            {
+              "Level2": "Trading Messaging",
+              "ID": "CM2_273",
+              "Description": "Messaging and communications provided for niche use cases including those requiring regulatory compliance."
+            },
+            {
+              "Level2": "Trading Voice",
+              "ID": "CM2_274",
+              "Description": "Voice technology application utilized primarily by Traders. Users are provisioned with a Trading Turret, a high feature telephony device, which enables setup of a large number of pre-programmed buttons, access to Private Wires which provide instant connection to other DB Traders, brokers and financial organizations. The system also allows access to Hoot and Holler broadcast communications and Intercom. Users typically have 8, 16 or 24 speakers. The technology is a proprietary vendor product, running on appliance devices installed in DB data rooms."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_055",
+          "Level1": "Workplace",
+          "Level2s": [
+            {
+              "Level2": "Desk",
+              "ID": "CM2_275",
+              "Description": "A selection of workplace products to enable users to work efficiently in Trading, non-Trading and Retail branches. These products include but not limited to Monitors, Keyboard & Mice, headsets and webcams."
+            },
+            {
+              "Level2": "Fax",
+              "ID": "CM2_276",
+              "Description": "Provides email-to-fax service for inbound and outbound connections, and application-based fax services globally."
+            },
+            {
+              "Level2": "Media Distribution",
+              "ID": "CM2_277",
+              "Description": "A suite of Audio Visual media distribution capabilities allowing information to be displayed effectively throughout the organization.\n\n* Traditional TV distribution for Trading Floors and shared spaces\n\n* Digital Signage\n\n* Webcasting\n\n* Desktop video-on-demand"
+            },
+            {
+              "Level2": "Meeting Room",
+              "ID": "CM2_278",
+              "Description": "Room based video conferencing facilities are available within public and private meeting rooms across the bank. Various standard room solutions are available depending on the number of participants and AV requirements."
+            },
+            {
+              "Level2": "Print",
+              "ID": "CM2_279",
+              "Description": "Provision of global, Cloud Based and on-prem network based Managed Print solutions and additionally, oversight of legacy direct printing (where a printer is connected directly to a computer)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_009",
+      "Level0": "Business Process Management",
+      "Level1s": [
+        {
+          "Ref": "CM1_024",
+          "Level1": "Business Process Management",
+          "Level2s": [
+            {
+              "Level2": "BPM Tools",
+              "ID": "CM2_134",
+              "Description": "Business process management (BPM) tools are software solutions that helps design, model, execute, monitor, and optimise business processes in all steps of business process management."
+            },
+            {
+              "Level2": "Process Discovery",
+              "ID": "CM2_135",
+              "Description": "Process discovery is the set of different tools and techniques to discover how any process in companies is actually executed."
+            },
+            {
+              "Level2": "Process Mining",
+              "ID": "CM2_136",
+              "Description": "Process mining applies data science to discover, validate and improve workflows."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_010",
+      "Level0": "Software Development",
+      "Level1s": [
+        {
+          "Ref": "CM1_030",
+          "Level1": "Plan",
+          "Level2s": [
+            {
+              "Level2": "Requirements Management & Analysis Tools",
+              "ID": "CM2_182",
+              "Description": "Requirements Management & Analysis Tools are required for capturing, analyzing, tracking and managing software requirements throughout the development lifecycle.\n\nIt enhances collaboration amongst different teams, reduces project risks by maintaining traceability and impact assessment."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_031",
+          "Level1": "Design",
+          "Level2s": [
+            {
+              "Level2": "SW Design Tools",
+              "ID": "CM2_183",
+              "Description": "Software design tools are applications that assist in planning, visualizing, and documenting the structure and functionality of a system before implementation. These tools help in creating the process workflows ensuring a structured and efficient development process."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_032",
+          "Level1": "Code",
+          "Level2s": [
+            {
+              "Level2": "Binary Repository",
+              "ID": "CM2_099",
+              "Description": "A centralized storage system to manage, store and distribute codes, libraries and dependencies in software development ensuring efficiency, security and consistency in software builds and deployments"
+            },
+            {
+              "Level2": "Versioning & Collaboration Tools",
+              "ID": "CM2_184",
+              "Description": "Versioning & Collaboration Tools helps in enabling the teams to manage, track and coordinate changes in source code efficiently. It ensures a structured development process."
+            },
+            {
+              "Level2": "IDE Development Tools",
+              "ID": "CM2_185",
+              "Description": "Software applications that provide a comprehensive environment for coding, debugging, testing and deployment of software"
+            },
+            {
+              "Level2": "Code Dependency Mgmt.",
+              "ID": "CM2_186",
+              "Description": "The Process of handling external libraries and modules that a software project relies. Ensures that all required dependencies are installed correctly installed and updated. It looks for compatibility preventing conflicts and improving maintainability."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_034",
+          "Level1": "Build",
+          "Level2s": [
+            {
+              "Level2": "Code Integration Tools",
+              "ID": "CM2_100",
+              "Description": "Tools that automate the process of integrating code changes from multiple developers into a shared repository, verifying the correctness of the integrated code through automated builds and test"
+            },
+            {
+              "Level2": "Code Image Build",
+              "ID": "CM2_101",
+              "Description": "The process of transforming source code into a runnable, deployable image or executable, often involving compilation, linking, and packaging."
+            },
+            {
+              "Level2": "Infrastructure as code and Configuration Mgmt.",
+              "ID": "CM2_187",
+              "Description": "The practice that automates the provisioning, management and maintenance of IT infrastructure and application configurations."
+            },
+            {
+              "Level2": "Build Dependency Mgmt.",
+              "ID": "CM2_188",
+              "Description": "Process of handling and resolving dependencies required for compiling and packaging software projects. Ensures necessary libraries, modules etc. are correctly integrated, maintained and versioned for build process to be success."
+            },
+            {
+              "Level2": "Build Automation",
+              "ID": "CM2_189",
+              "Description": "The Process of using scripts and tools to compile, package and deploy software applications automatically. Eliminates manual intervention in the build process, improving efficiency, consistency and reliability in software development."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_035",
+          "Level1": "Test",
+          "Level2s": [
+            {
+              "Level2": "Test automation tools",
+              "ID": "CM2_190",
+              "Description": "Software applications that help automate the execution of test cases and compared the results with the expected results and helps in improving the quality. These tools reduce manual testing and speeds up the testing process and ensures reliability."
+            },
+            {
+              "Level2": "Code Quality Testing",
+              "ID": "CM2_191",
+              "Description": "The process that helps analyzing and evaluating source code to ensure it meets defined standards, best practices and requirements. Code Quality testing helps in detecting bugs, vulnerabilities and performance issues in the early stages. Code quality covers two distinct areas: Security and Maintenance with the latter providing information about the structure of the code in terms of the effort required to maintain the code in future releases."
+            },
+            {
+              "Level2": "Regression Testing",
+              "ID": "CM2_192",
+              "Description": "Regression testing ensures that there no issues created with the recent code changes on the system. It verifies that’s the system continues to work as expected after the updates / enhancements."
+            },
+            {
+              "Level2": "System Testing",
+              "ID": "CM2_193",
+              "Description": "System testing verifies that all components work together as expected in a real time before any deployments and helps with End-to end valuation."
+            },
+            {
+              "Level2": "Unit Testing",
+              "ID": "CM2_194",
+              "Description": "A testing method that focuses on verifying individual components/ functions of an application in isolation. Ensures that the code works as expected before any integrations with other systems."
+            },
+            {
+              "Level2": "Code/Image Compliance Scanning",
+              "ID": "CM2_195",
+              "Description": "Code Compliance scanning Detects Security vulnerabilities, ensures license and compliance. Whereas Image compliance scanning helps in Vulnerability scanning, Malware and intrusion detection and configuration compliance."
+            },
+            {
+              "Level2": "Penetration Testing",
+              "ID": "CM2_281",
+              "Description": "A penetration test is an authorized simulated cyberattack on a computer system, performed to evaluate the security of the system. The test is performed to identify weaknesses (or vulnerabilities), including the potential for unauthorized parties to gain access to the system's features and data."
+            },
+            {
+              "Level2": "Performance Testing",
+              "ID": "CM2_282",
+              "Description": "Performance testing is in general performed to determine how a system performs in terms of responsiveness and stability under a particular workload. It can also serve to investigate, measure, validate or verify other quality attributes of the system, such as scalability, reliability and resource usage."
+            },
+            {
+              "Level2": "Reliability Testing",
+              "ID": "CM2_283",
+              "Description": "Software reliability testing relates to testing a software's ability to function, given environmental conditions, for a particular amount of time. Software reliability testing helps discover many problems in the software design and functionality."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_036",
+          "Level1": "Release",
+          "Level2s": [
+            {
+              "Level2": "Releasement Management Tools",
+              "ID": "CM2_196",
+              "Description": "Releasement Management Tools helps to plan, coordinate automate and track the process of delivering software updates and new versions in an effective way."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_037",
+          "Level1": "Deploy",
+          "Level2s": [
+            {
+              "Level2": "Deployment Tools",
+              "ID": "CM2_197",
+              "Description": "Deployment tools supports to manage and monitor the process of delivering software to different environments. It ensures smooth and error free deployments reducing manual work and downtime."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_011",
+      "Level0": "Storage",
+      "Level1s": [
+        {
+          "Ref": "CM1_043",
+          "Level1": "Primary Storage",
+          "Level2s": [
+            {
+              "Level2": "Block Storage",
+              "ID": "CM2_013",
+              "Description": "Block SAN (Storage Area Network) storage is a type of data storage system where data is stored in fixed-size blocks, similar to how data is organised on a hard drive. The data is managed at the block level rather than the file level, meaning that it doesn’t have a file system like traditional network-attached storage (NAS). Instead, it allows servers to access storage directly by communicating with the SAN through protocols such as Fibre Channel or iSCSI. Block storage can be used for computing situations that require high performance, efficient, lossless and reliable data transportation. i.e. databases or virtual machines."
+            },
+            {
+              "Level2": "Cloud Block Storage",
+              "ID": "CM2_222",
+              "Description": "Cloud block storage, in the context of public cloud technologies, refers to a service that provides scalable, high-performance storage volumes that are managed and hosted by cloud providers, like AWS, Azure, or Google Cloud. It works similarly to traditional block storage in a SAN, where data is organised into fixed-size blocks, but it’s delivered over the internet as a service. Cloud block storage benefits from the flexibility and scalability of the cloud, as users only pay for what they use, and they don’t need to manage the underlying hardware."
+            },
+            {
+              "Level2": "Unified Storage (Block, NFS, S3, CIFS)",
+              "ID": "CM2_223",
+              "Description": "Unified storage platforms are solutions that integrate multiple storage protocols—such as NFS (Network File System), CIFS (Common Internet File System), block storage, and object storage—into a single appliance or system, allowing organisations to manage different types of data storage from a centralised point. This unified approach is typically realised through software-defined logical configurations, enabling flexibility and scalability without the need for separate, dedicated hardware for each protocol."
+            },
+            {
+              "Level2": "Snapshot Copy Storage",
+              "ID": "CM2_224",
+              "Description": "Snapshot copy Storage is a data protection method which captures a image or a reference point created at a particular point in time copy. As opposed to backup copies or clone replicas, snapshots are compressed and take-up less space, consume less bandwidth and can be accessed by clients."
+            },
+            {
+              "Level2": "File Storage as a Service NFS/SMB",
+              "ID": "CM2_225",
+              "Description": "File Storage as a service is a managed consumption based storage offering for unstructured file and object data protocols. Network File System (NFS) and Server Message Block (SMB) are file access storage protocols or rules for efficient file sharing over a network. NFS: Primarily used for file-based storage, often in Unix/Linux environments. CIFS/SMB: Used for file sharing in Windows environments."
+            },
+            {
+              "Level2": "Cloud File Volumes (CVO)",
+              "ID": "CM2_226",
+              "Description": "NetApp Cloud Volumes ONTAP is a cloud-native data management solution ran on virtual instances to host unified storage protocol data workloads in the cloud. It can also be used to enable movement of data from on-premises to CVO in the cloud."
+            },
+            {
+              "Level2": "Object Storage (CAS/S3/GCS)",
+              "ID": "CM2_227",
+              "Description": "Object storage is a data storage architecture that stores and manages unstructured data in units called objects. Objects can be any size or format, and can include data, metadata, and a unique identifier. Example: Amazon S3 (Simple Storage Service) or Content Addressed Storage (CAS) buckets"
+            },
+            {
+              "Level2": "SAN Switch Fiber Connectivity",
+              "ID": "CM2_228",
+              "Description": "A high speed network switch to connect storage devices to servers using Fiber channel. These provide high performance, Low latency, reliable lossless data transfers and high speed dedicated connectivity."
+            },
+            {
+              "Level2": "Software Defined Storage",
+              "ID": "CM2_229",
+              "Description": "A data storage methodology in which a software layer is used to decouple storage resources from an underlying physical storage hardware infrastructure. SDS allows policy-based provisioning and dynamic storage resource management, independent of the unique storage hardware being used."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_044",
+          "Level1": "Secondary Storage",
+          "Level2s": [
+            {
+              "Level2": "Backup & Restore to Tape",
+              "ID": "CM2_230",
+              "Description": "Backup is periodically copying the data to a secondary storage device such as tape which is a removable media to safeguard against loss, damage or corruption of data. Restore is the process of copying backup data from the tape -secondary storage and restoring it to its original location or a new location"
+            },
+            {
+              "Level2": "Backup & Restore to Disk",
+              "ID": "CM2_231",
+              "Description": "Backup is periodically copying the data to a secondary storage device such as disk to safeguard against loss, damage or corruption of data. Restore is the process of copying backup data from the disk -secondary storage and restoring it to its original location or a new location."
+            },
+            {
+              "Level2": "Backup & Restore to Object",
+              "ID": "CM2_232",
+              "Description": "Backup is periodically copying the data to a secondary storage device such as object storage to safeguard against loss, damage or corruption of data. Restore is the process of copying backup data from the object -secondary storage and restoring it to its original location or a new location."
+            },
+            {
+              "Level2": "Backup as a Service (includes Vaulted backup)",
+              "ID": "CM2_233",
+              "Description": "Backup as a Service (BaaS) is a managed, consumption charged, third-party service where data is stored in a secure, private cloud or public cloud repository. A backup vault is a secure, centralised storage location where backup data is stored and managed. It is designed to safeguard critical data by storing copies of it in a protected, often off-site, environment, ensuring data can be restored in the event of loss, corruption, or disaster."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_045",
+          "Level1": "Data Transfer",
+          "Level2s": [
+            {
+              "Level2": "GCP Storage Transfer Service",
+              "ID": "CM2_234",
+              "Description": "Google Cloud Storage Transfer Service is a managed service provided by Google Cloud Platform (GCP) that facilitates the transfer of data from various sources—such as on-premises storage, other cloud providers, or Google Cloud Storage (GCS) buckets—into Google Cloud Storage."
+            },
+            {
+              "Level2": "File Migration Service",
+              "ID": "CM2_235",
+              "Description": "Moving of files from one storage appliance to another."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "RefCode": "CM0_012",
+      "Level0": "Networks",
+      "Level1s": [
+        {
+          "Ref": "CM1_050",
+          "Level1": "Network Infrastructure",
+          "Level2s": [
+            {
+              "Level2": "IPAM (DNS, DHCP)",
+              "ID": "CM2_018",
+              "Description": "DNS is one of the industry-standard suite of protocols that comprise TCP/IP, and together the DNS Client and DNS Server provide computer name-to-IP address mapping name resolution services to computers and users.\n\n- Dynamic Host Configuration Protocol (DHCP) is a client/server protocol that automatically provides an Internet Protocol (IP) host with its IP address and other related configuration information such as the subnet mask and default gateway.\n\n- IP Address Management (IPAM) is an integrated suite of tools to enable end-to-end planning, deploying, managing and monitoring of IP address infrastructure. It automatically discovers IP address infrastructure servers and Domain Name System (DNS) servers on the network and enables management from a central interface."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_050",
+          "Level1": "On-Prem",
+          "Level2s": [
+            {
+              "Level2": "IPAM (DNS, DHCP)",
+              "ID": "CM2_018",
+              "Description": "DNS is one of the industry-standard suite of protocols that comprise TCP/IP, and together the DNS Client and DNS Server provide computer name-to-IP address mapping name resolution services to computers and users.\n\n- Dynamic Host Configuration Protocol (DHCP) is a client/server protocol that automatically provides an Internet Protocol (IP) host with its IP address and other related configuration information such as the subnet mask and default gateway.\n\n- IP Address Management (IPAM) is an integrated suite of tools to enable end-to-end planning, deploying, managing and monitoring of IP address infrastructure. It automatically discovers IP address infrastructure servers and Domain Name System (DNS) servers on the network and enables management from a central interface."
+            },
+            {
+              "Level2": "Load Balancer",
+              "ID": "CM2_020",
+              "Description": "A load balancer is a networking device or software application that distributes and balances the incoming traffic among the servers to provide high availability, efficient utilization of servers, and high performance. A load balancer works as a focal point sitting in front of servers, routing and equally distributing client requests across the server estate."
+            },
+            {
+              "Level2": "Multicast",
+              "ID": "CM2_022",
+              "Description": "Multicast is a group communication capability where data transmission is addressed to a group of destination computers simultaneously. Multicast can be one-to-many or many-to-many distribution."
+            },
+            {
+              "Level2": "Network Monitoring",
+              "ID": "CM2_026",
+              "Description": "The network monitoring capability provides services that monitor network performance and availability necessary to manage these resources."
+            },
+            {
+              "Level2": "SD (software defined function)",
+              "ID": "CM2_236",
+              "Description": "SD is a virtualized network function that is implemented using software rather than a dedicated hardware. A key component of SDN and NFV ( Network Function Virtualization ) These function are managed and controlled programmatically providing flexibility, scalability and automation in network operations"
+            },
+            {
+              "Level2": "Wireless Network",
+              "ID": "CM2_237",
+              "Description": "A wireless communication system that provides commectivity within specific physical locations. Wireless network on On-Prem is deployed, maintained and controlled with in the organisation Infrastructure."
+            },
+            {
+              "Level2": "Routing & Switching",
+              "ID": "CM2_238",
+              "Description": "Routing & Switching are networking functions that enable communication between devices with in and across different networks. The switch performs the function of a controller and allows the devices within a network to communicate with each other. The data is received, processed, and forwarded to its destination from one computer to another. While switches connect computers within a single network, routers are used to connect entire networks to each other. Data packets are received, processed, and forwarded from one network to another."
+            },
+            {
+              "Level2": "Low Latency (LL, ULL)",
+              "ID": "CM2_239",
+              "Description": "A low latency network is one designed to minimise data transmission delays The data is transmitted across a network with minimal delay na.Ultra low latency describes networks designed to transmit very high volumes of data with an extremely low delay – transmission is almost instantaneous. Low latency is measured in milliseconds. Ultra Low Latency Network is optimized to process a very high volume of data packets with an extraordinarily low tolerance for delay. Ultra-low latency is measured in nanoseconds."
+            },
+            {
+              "Level2": "Optical",
+              "ID": "CM2_240",
+              "Description": "Optical Network is basically a communication network used for the exchange of information through an optical fiber cable between one end to another. It is one of the quickest networks used for data communication."
+            },
+            {
+              "Level2": "Wide Area Network",
+              "ID": "CM2_241",
+              "Description": "Wide-area network (WAN) is a collection of local-area networks (LANs) or other networks that wide-area network (WAN) is a collection of local-area networks (LANs) or other networks that communicate with one another. Connections may be formed in several different ways, including leased lines, VPNs, or IP tunnels."
+            },
+            {
+              "Level2": "Campus",
+              "ID": "CM2_242",
+              "Description": "A campus area network, or CAN, is a computer network that spans a limited geographic area. Campus network is larger than a single LAN but smaller than a WAN ( Wide Area Network).Campus networks are reliable and secured. They provides high performance benefits for users, data transfers and cloud based services efficiently."
+            },
+            {
+              "Level2": "Datacentre",
+              "ID": "CM2_243",
+              "Description": "Data center servers as a backbone for IT operations, hosting servers, applications and cloud services.Data Center is a facility that houses centralised collection of Computing, storage and networking resources. It manages, process and distribute data."
+            },
+            {
+              "Level2": "Branch",
+              "ID": "CM2_244",
+              "Description": "A branch is a single or group of components which are connected between two nodes. Branches extend the reach of the central network to remote locations. They connect to the central network via secure methods to protect data transmission. They have the same policies and security protocols as the main network."
+            },
+            {
+              "Level2": "Packet Capture & analysis",
+              "ID": "CM2_245",
+              "Description": "The process of intercepting and recording data packets that travels across a computer network is Packet Capture. Packet analysis is examining the captured packets to understand network behavior, troubleshoot issues, optimize performance and ensure security."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_051",
+          "Level1": "Network Security",
+          "Level2s": [
+            {
+              "Level2": "Firewall",
+              "ID": "CM2_017",
+              "Description": "A firewall is a network security device designed to monitor, filter, and control incoming and outgoing network traffic based on predetermined security rules. The primary purpose of a firewall is to establish a barrier between a trusted internal network and untrusted external networks."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_051",
+          "Level1": "On-Prem",
+          "Level2s": [
+            {
+              "Level2": "VPN",
+              "ID": "CM2_021",
+              "Description": "The Virtual Private Network capability extends a private network across a public network and enables users to send and receive data across shared or public networks as if their computing devices were directly connected to the private network. A VPN is created by establishing a virtual point-to-point connection through the use of dedicated circuits or with tunnelling protocols over existing networks."
+            },
+            {
+              "Level2": "Segmentation",
+              "ID": "CM2_150",
+              "Description": "Network segmentation is a physical or virtual architectural approach dividing a network into multiple segments, each acting as its own subnetwork providing additional security and control.\n\nSegmentation limits access to devices, data, and applications and\n\nrestricts communications between networks."
+            },
+            {
+              "Level2": "DDoS mitigation",
+              "ID": "CM2_246",
+              "Description": "DDoS mitigation is a set of network management techniques or tools for resisting or mitigating the impact of distributed denial-of-service (DDoS) attacks on networks attached to the Internet by protecting the target and relay networks. DDoS mitigation works by identifying baseline conditions for network traffic by analyzing traffic patterns to allow threat detection and alerting.\n\nOn-premises mitigation technology is often placed in front of the network."
+            },
+            {
+              "Level2": "Proxy",
+              "ID": "CM2_247",
+              "Description": "A proxy is an intermediary server that acts as a gateway between a two networks. They can hide the source IP address from the destination, providing a layer of anonymity. A proxy filters and controls access to the data content. Proxies protect internal networks from external threats by acting as a barrier between users and potentially harmful sites."
+            },
+            {
+              "Level2": "NAC",
+              "ID": "CM2_248",
+              "Description": "Network access control (NAC) is the process of restricting unauthorized users and devices from accessing resources on the network. NAC support network visibility and access management through policy enforcement on devices and users. enable IT to authorize or prevent users and devices from accessing resources on the network."
+            },
+            {
+              "Level2": "Intrusion Detection System",
+              "ID": "CM2_249",
+              "Description": "An intrusion detection system (IDS) is a network security tool that monitors network traffic and devices for known malicious activity, suspicious activity or security policy violations.\n\nAn IDS can help accelerate and automate network threat detection by alerting security administrators to known or potential threats, or by sending alerts to a centralized security tool such as SIEM."
+            },
+            {
+              "Level2": "Intrusion Preventions System",
+              "ID": "CM2_250",
+              "Description": "An intrusion prevention system (IPS) monitors network traffic for potential threats and automatically blocks them by alerting the security team, terminating dangerous connections, removing malicious content or triggering other security devices.\n\nIPSs can help enforce network security policies by blocking unauthorized actions from legitimate users, and they can support compliance efforts."
+            },
+            {
+              "Level2": "Network Encryption",
+              "ID": "CM2_251",
+              "Description": "Network encryption, a vital technology, secures data during its journey across networks. By encoding information, it ensures that only authorized recipients can access it.\n\nEncryption involves converting data into an unreadable format and decoding it with cryptographic keys. Network encryption is crucial for data security and compliance with regulations."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_052",
+          "Level1": "Network Infrastructure",
+          "Level2s": [
+            {
+              "Level2": "VPC (virtual network)",
+              "ID": "CM2_252",
+              "Description": "A VPC network is a global resource that consists of a list of regional virtual subnetworks (subnets) in data centers, all connected by a global wide area network. VPC networks are logically isolated from each other in Google Cloud. Virtual Private Cloud (VPC) provides networking functionality to Compute Engine virtual machine (VM) instances, Google Kubernetes Engine (GKE) clusters, and serverless workloads.\n\nVPC provides networking for the cloud-based resources and services that is global, scalable, and flexible."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_052",
+          "Level1": "Cloud",
+          "Level2s": [
+            {
+              "Level2": "Cloud CDN",
+              "ID": "CM2_025",
+              "Description": "Cloud CDN (Content Delivery Network) uses Google's global edge network to serve content closer to users, which accelerates your websites and applications."
+            },
+            {
+              "Level2": "VPC (virtual network)",
+              "ID": "CM2_252",
+              "Description": "A VPC network is a global resource that consists of a list of regional virtual subnetworks (subnets) in data centers, all connected by a global wide area network. VPC networks are logically isolated from each other in Google Cloud. Virtual Private Cloud (VPC) provides networking functionality to Compute Engine virtual machine (VM) instances, Google Kubernetes Engine (GKE) clusters, and serverless workloads.\n\nVPC provides networking for the cloud-based resources and services that is global, scalable, and flexible."
+            },
+            {
+              "Level2": "Cloud LB",
+              "ID": "CM2_253",
+              "Description": "Cloud Load Balancing is a fully distributed, software-defined, managed service. It distributes user traffic across multiple instances of the applications. By spreading the load,load balancing reduces the risk of applications performance issues.\n\nCloud Load Balancing offers a comprehensive portfolio of application and network load balancers."
+            },
+            {
+              "Level2": "Cloud Router",
+              "ID": "CM2_254",
+              "Description": "Cloud Router is a distributed and fully managed offering that provides Border Gateway Protocol (BGP) speaker and responder capabilities. Cloud Router works with Cloud Interconnect, Cloud VPN, and Router appliances to create dynamic routes in VPC networks based on BGP-received and custom learned routes."
+            },
+            {
+              "Level2": "Cloud DNS",
+              "ID": "CM2_255",
+              "Description": "Cloud DNS is a high-performance, resilient, global Domain Name System (DNS) service that publishes your domain names to the global DNS in a cost-effective way. DNS is a hierarchical distributed database that lets you store IP addresses and other data and look them up by name.\n\nCloud DNS offers both public and Private Zones.Public Zone is visible on the internet where as Private Zones are visible on the internal Network or VPC."
+            },
+            {
+              "Level2": "Cloud Network Observability",
+              "ID": "CM2_256",
+              "Description": "Network observability refers to the ability to gain deep, actionable insights into the state and performance of a network. Unlike traditional monitoring, which merely identifies when and where issues occur, network observability reveals why these problems happen, enabling faster diagnosis and resolution. Cloud Network Observability provides end-to-end visibility between public cloud and on-prem networks."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_053",
+          "Level1": "Network Security",
+          "Level2s": [
+            {
+              "Level2": "Cloud Firewall",
+              "ID": "CM2_257",
+              "Description": "Cloud Firewall operates in the cloud environment. It monitors and contol the incoming and outgoing network traffic. It protects cloud-based resources from unauthorised access, threats and malicious actiity by enforcing predefined security rules."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_053",
+          "Level1": "Cloud",
+          "Level2s": [
+            {
+              "Level2": "Cloud Proxy",
+              "ID": "CM2_258",
+              "Description": "Cloud Proxy is a security service hosted on the cloud. It act as as intermediary between users and the internet. Cloud proxy helps protect internal resources, hide the true network details from external entities. It ensures only safe and approved traffic flows in and out of a network."
+            },
+            {
+              "Level2": "Cloud WAF",
+              "ID": "CM2_259",
+              "Description": "Cloud Application firewall protect web applications against exploitation via vulnerabilities by filtering and monitoring HTTP traffic between a web application and the Internet."
+            },
+            {
+              "Level2": "Cloud VPN",
+              "ID": "CM2_260",
+              "Description": "Cloud VPN is a setwork security solution provides as a cloud service. Ot uses encryption. It uses encryption protocols to protect data transmitted over public networks ensuring integrity, confidentiality and aunthenticity.It creates secure, encrypted tunnels between remote users, devices and cloud based resources."
+            },
+            {
+              "Level2": "Cloud DDOS mitigation",
+              "ID": "CM2_261",
+              "Description": "A Cloud based security solution designed to protect applications, networks from DDoS attacks. It uses traffic filtering, traffic scrubbing and rate limiting to block or absorb malicious traffic. It monitors traffic to detect and analyze patterns and indicators related to DDoS attack"
+            },
+            {
+              "Level2": "Cloud IDS",
+              "ID": "CM2_262",
+              "Description": "A Cloud based security service that continuously monitors network traffic and system activities to detect potential security threats. It uses signature-based, anomaly-based techniques to identify suspicious patterns and uses this for further investigation."
+            },
+            {
+              "Level2": "Cloud IPS",
+              "ID": "CM2_263",
+              "Description": "Cloud IPS is a cloud-based security solution designed to detect and automatically prevent and mitigate security threats in real time. It monitors network traffic and system activities for suspicious behaviour. It blocks, filters and qurantines malicious traffic."
+            },
+            {
+              "Level2": "Cloud NAT",
+              "ID": "CM2_264",
+              "Description": "A cloud based solution that enables resources with in private network (Virtual machines, Containers) to access external network without exposing the Private IP Addresses Cloud NAT allows outbound communication keeping the resources hidden from external traffic."
+            }
+          ]
+        },
+        {
+          "Ref": "CM1_054",
+          "Level1": "Network Automation",
+          "Level2s": [
+            {
+              "Level2": "Automation",
+              "ID": "CM2_132",
+              "Description": "To minimize the tasks and avoid human intervention, adopt to use of technology and software tools to execute network tasks and processes. Automation helps with enhancing operational efficiency supports in deployment, scaling of network infrastructure and reduce repetitive and error-prone tasks."
+            }
+          ]
+        }
+      ]
+    }
+  ]

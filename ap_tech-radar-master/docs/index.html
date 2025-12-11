@@ -17,13 +17,19 @@
 <body>
  
 <div id="header"></div>
-<script>
-  fetch('../../header.html')
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById('header').innerHTML = html;
-    });
-</script>
+<header>
+  <div id="header"></div>
+  <script>
+    fetch('../../header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('header').innerHTML = html;
+      });
+  </script>
+<div class="meta">
+  <center><a href="./index.html">Current Radar</i> | <a href="./index.html?horizon=1">Horizon 1 Radar</i> | <a href="./index.html?horizon=2">Horizon 2 Radar</i></center>
+</div>
+</header>
 
   <svg id="radar"></svg>
 
@@ -181,4 +187,4 @@ The Automation Platforms Tech Radar is a list of technologies, complemented by a
 </table>
 
 </body>
-</html>
+</ht

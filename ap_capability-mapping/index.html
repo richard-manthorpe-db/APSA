@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GTI Capability Taxonomy Drilldown</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../header.css">
+</head>
+<body>
+    <header>
+      <div id="header"></div>
+      <script>
+        fetch('../header.html')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('header').innerHTML = html;
+          });
+      </script>
+      <div class="meta">
+        <h1>GTI Capability Taxonomy Drilldown</h1>
+        <div>
+          <label for="platformSelect">Filter by Platform:</label>
+          <select id="platformSelect">
+            <option value="">-- All Platforms --</option>
+          </select>
+          <button id="reloadBtn" title="Reload taxonomy & config">Reload</button>
+        </div>
+      </div>
+    </header>
+
+  <main class="app-main">
+    <section class="panel" aria-label="Capabilities">
+      <h2 class="section-title">Capabilities</h2>
+      <div id="taxonomy" class="taxonomy"></div>
+    </section>
+
+    <section class="panel panel-details" aria-label="Details">
+      <h2 class="section-title">Details</h2>
+      <div id="details" class="details empty">
+        Select a capability to see its description and mapped platforms.
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span id="status" class="status">Ready.</span>
+  </footer>
+
+  <!-- App logic -->
+  <script src="taxonomy-drilldown.js"></script>
+</body>
+</html>
+

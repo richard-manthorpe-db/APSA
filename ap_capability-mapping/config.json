@@ -1,0 +1,16 @@
+{
+    "platforms": [
+      {
+        "name": "New Relic",
+        "capabilities": ["CM2_201", "CM2_212", "CM2_227"]
+      },
+      {
+        "name": "Geneos",
+        "capabilities": ["CM2_213", "CM2_225"]
+      },
+      {
+        "name": "dbRUN",
+        "capabilities": ["CM2_201", "CM2_225", "CM2_229"]
+      }
+    ]
+  }
