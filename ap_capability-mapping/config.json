@@ -1,16 +1,34 @@
 {
     "platforms": [
-      {
-        "name": "New Relic",
-        "capabilities": ["CM2_201", "CM2_212", "CM2_227"]
-      },
-      {
-        "name": "Geneos",
-        "capabilities": ["CM2_213", "CM2_225"]
-      },
-      {
-        "name": "dbRUN",
-        "capabilities": ["CM2_201", "CM2_225", "CM2_229"]
-      }
+        {"name":"db-GHS","capabilities":["CM2_104"]},
+        {"name":"db-PerfMon","capabilities":["CM2_103"]},
+        {"name":"db-TSCO","capabilities":["CM2_148"]},
+        {"name":"New Relic","capabilities":["CM2_103", "CM2_104", "CM2_109", "CM2_112", "CM2_111", "CM2_106"]},
+        {"name":"Nimsoft","capabilities":["CM2_103", "CM2_104"]},
+        {"name":"Tivoli-Netcool","capabilities":["CM2_103", "CM2_104","CM2_105"]},
+        {"name":"dbART - Analytics - Reporting - Trends","capabilities":["CM2_040", "CM2_043", "CM2_143"]},
+        {"name":"db-DEP-GB","capabilities":["CM2_151"]},
+        {"name":"db-DEP-SM","capabilities":["CM2_151"]},
+        {"name":"dbDiscovery","capabilities":["CM2_199", "CM2_200"]},
+        {"name":"db-IB","capabilities":["CM2_040"]},
+        {"name":"db-RIB","capabilities":["CM2_040"]},
+        {"name":"SLM Platform (Flexera Flexnet manager)","capabilities":["CM2_199","CM2_108", "CM2_200"]},
+        {"name":"Control workbench","capabilities":["CM2_057", "CM2_056", "CM2_040", "CM2_039", "CM2_195"]},
+        {"name":"CONTROL-M","capabilities":["CM2_120", "CM2_130", "CM2_132", "CM2_121"]},
+        {"name":"DB-ORBIT","capabilities":["CM2_265", "CM2_130", "CM2_164"]},
+        {"name":"OneMI Portal","capabilities":["CM2_040", "CM2_039", "CM2_112"]},
+        {"name":"Product Store","capabilities":["CM2_114", "CM2_265"]},
+        {"name":"UC4","capabilities":["CM2_120", "CM2_130", "CM2_132", "CM2_121"]},
+        {"name":"WLA-Airflow","capabilities":["CM2_120", "CM2_130", "CM2_132", "CM2_121"]},
+        {"name":"db-chatbot","capabilities":["CM2_158"]},
+        {"name":"db-chatbot","capabilities":["CM2_158"]},
+        {"name":"dbDOES","capabilities":["CM2_189", "CM2_100", "CM2_187", "CM2_164"]},
+        {"name":"dbORCA","capabilities":["CM2_130", "CM2_164","CM2_132"]},
+        {"name":"dbRUN","capabilities":["CM2_130","CM2_164", "CM2_132"]},
+        {"name":"db-Unity","capabilities":["CM2_199", "CM2_200","CM2_107"]},
+        {"name":"dbServiceNow","capabilities":["CM2_199", "CM2_200", "CM2_107", "CM2_165", "CM2_166"]},
+        {"name":"DR Portal","capabilities":["CM2_090"]},
+        {"name":"TechDirect/TRC Portal","capabilities":["CM2_199", "CM2_209","CM2_195"]},
+        {"name":"NAR","capabilities":["CM2_209"]}    
     ]
   }

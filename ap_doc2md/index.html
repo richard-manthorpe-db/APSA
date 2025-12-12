@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Word (.docx) → Markdown Converter</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; background: #0b0c0f; color: #e6e6e6; }
+    header { padding: 1rem 1.25rem; background: #11131a; border-bottom: 1px solid #1d2130; }
+    h1 { font-size: 1.25rem; margin: 0; }
+    main { padding: 1rem; display: grid; gap: 1rem; }
+    .panel { background: #121622; border: 1px solid #1d2130; border-radius: 10px; padding: 1rem; }
+    .row { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 1024px) { .row { grid-template-columns: 1fr 1fr; } }
+    .dropzone { border: 2px dashed #2a3956; border-radius: 10px; padding: 1.25rem; text-align: center; cursor: pointer; background: #0e1320; }
+    .dropzone.drag { background: #11203a; border-color: #3a76ff; }
+    input[type="file"] { display: none; }
+    .controls { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+    button, label.button { background: #2761ff; color: #fff; border: none; border-radius: 8px; padding: .6rem .9rem; cursor: pointer; font-weight: 600; }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+    .secondary { background: #1f2434; color: #cdd7f7; }
+    .muted { color: #aab2c5; font-size: .9rem; }
+    textarea, .preview { width: 100%; min-height: 320px; background: #0b0f19; color: #e6e6e6; border: 1px solid #1d2130; border-radius: 10px; padding: .75rem; overflow: auto; }
+    .preview { line-height: 1.5; }
+    .status { font-size: .9rem; color: #aab2c5; margin-top: .5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+    code.kv { background: #0b0f19; border: 1px solid #1d2130; padding: .25rem .5rem; border-radius: 6px; }
+  </style>
+  <link rel="stylesheet" href="../header.css">
+  <!-- Libraries (load first) -->
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/turndown@7.1.2/dist/turndown.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
+</head>
+<body>
+  <header>
+      <div id="header"></div>
+        <script>
+          fetch('../header.html')
+            .then(response => response.text())
+            .then(html => {
+              document.getElementById('header').innerHTML = html;
+            });
+        </script>
+      <div class="meta">
+        <h1>Word (.docx) → Markdown Converter</h1>
+      </div>
+      </header>
+
+
+  <main>
+    <section class="panel">
+      <div class="dropzone" id="dropzone">
+        <strong>Drop a .docx here</strong> or
+        <label class="button" for="docxInput" id="chooseBtn">Choose file</label>
+        <input id="docxInput" type="file" accept=".docx" />
+        <div class="status" id="status">No file selected.</div>
+      </div>
+      <div class="controls" style="margin-top: .75rem;">
+        <button id="convertBtn" disabled>Convert to Markdown</button>
+        <button id="copyBtn" class="secondary" disabled>Copy Markdown</button>
+        <button id="downloadMdBtn" class="secondary" disabled>Download .md</button>
+        <button id="downloadAssetsBtn" class="secondary" disabled>Download images (zip)</button>
+        <span class="muted">Options:</span>
+        <label><input type="checkbox" id="smartQuotes" checked /> Smart punctuation → ASCII</label>
+        <label><input type="checkbox" id="inlineImages" checked /> Inline images as base64</label>
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="panel">
+        <h2 style="margin-top:0;">Markdown</h2>
+        <textarea id="mdOut" placeholder="Converted Markdown will appear here…" readonly></textarea>
+      </div>
+      <div class="panel">
+        <h2 style="margin-top:0;">HTML preview (from Word)</h2>
+        <div id="htmlPreview" class="preview"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 style="margin-top:0;">Conversion details</h2>
+      <div class="grid-3">
+        <div><strong>HTML chars</strong><div><code class="kv" id="statsHtml">–</code></div></div>
+        <div><strong>MD chars</strong><div><code class="kv" id="statsMd">–</code></div></div>
+        <div><strong>Images</strong><div><code class="kv" id="statsImg">–</code></div></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- App code -->
+  <script>
+    // Wait until the deferred library scripts are available
+    window.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('docxInput');
+      const dropzone = document.getElementById('dropzone');
+      const convertBtn = document.getElementById('convertBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const downloadMdBtn = document.getElementById('downloadMdBtn');
+      const downloadAssetsBtn = document.getElementById('downloadAssetsBtn');
+
+      const status = document.getElementById('status');
+      const mdOut = document.getElementById('mdOut');
+      const htmlPreview = document.getElementById('htmlPreview');
+      const statsHtml = document.getElementById('statsHtml');
+      const statsMd = document.getElementById('statsMd');
+      const statsImg = document.getElementById('statsImg');
+
+      const inlineImagesCheckbox = document.getElementById('inlineImages');
+      const smartQuotesCheckbox = document.getElementById('smartQuotes');
+
+      let arrayBuffer = null;
+      let imagesCollected = []; // {filename, dataUrl}
+      let currentMd = '';
+
+      // -- Drag & drop UX --
+      ['dragenter','dragover'].forEach(evt =>
+        dropzone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.add('drag'); })
+      );
+      ['dragleave','drop'].forEach(evt =>
+        dropzone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('drag'); })
+      );
+      dropzone.addEventListener('drop', async e => {
+        const file = e.dataTransfer.files?.[0];
+        if (file) await handleFile(file);
+      });
+      //dropzone.addEventListener('click', () => input.click());
+
+      
+      document.getElementById('chooseBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      });
+
+      input.addEventListener('change', async (e) => {
+        const file = e.target.files?.[0];
+        if (file) await handleFile(file);
+      });
+
+      async function handleFile(file) {
+        if (!file.name.toLowerCase().endsWith('.docx')) {
+          status.textContent = 'Please select a .docx file.';
+          return;
+        }
+        status.textContent = `Selected: ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+        arrayBuffer = await file.arrayBuffer();
+        convertBtn.disabled = false;
+        copyBtn.disabled = true;
+        downloadMdBtn.disabled = true;
+        downloadAssetsBtn.disabled = true;
+        mdOut.value = '';
+        htmlPreview.innerHTML = '';
+        statsHtml.textContent = '–';
+        statsMd.textContent = '–';
+        statsImg.textContent = '–';
+        imagesCollected = [];
+        currentMd = '';
+      }
+
+      // -- Convert flow: DOCX -> HTML (Mammoth) -> Markdown (TurndownService) --
+      convertBtn.addEventListener('click', async () => {
+        if (!arrayBuffer) return;
+
+        // Configure Mammoth image handler
+        const inlineImages = inlineImagesCheckbox.checked;
+        imagesCollected = [];
+        const imageCallback = inlineImages
+          ? mammoth.images.inline(function(element) {
+              return element.read('base64').then(function(imageBuffer) {
+                const mime = element.contentType || 'image/png';
+                const dataUrl = `data:${mime};base64,${imageBuffer}`;
+                const name = element.altText || `image-${imagesCollected.length + 1}`;
+                imagesCollected.push({ filename: `${name}.${mime.split('/')[1] || 'png'}`, dataUrl });
+                return { src: dataUrl };
+              });
+            })
+          : mammoth.images.imgElement(function(element) {
+              const name = element.altText || `image-${imagesCollected.length + 1}`;
+              const ext = (element.contentType || 'image/png').split('/')[1] || 'png';
+              return element.read('base64').then(function(imageBuffer) {
+                const dataUrl = `data:${element.contentType};base64,${imageBuffer}`;
+                imagesCollected.push({ filename: `${name}.${ext}`, dataUrl });
+                return { src: `assets/${name}.${ext}` };
+              });
+            });
+
+        try {
+          status.textContent = 'Converting with Mammoth…';
+          const mammothResult = await mammoth.convertToHtml({ arrayBuffer }, {
+            styleMap: [
+              "p[style-name='Title'] => h1.f-title",
+              "p[style-name='Subtitle'] => h2.f-subtitle",
+              "p[style-name='Heading 1'] => h1",
+              "p[style-name='Heading 2'] => h2",
+              "p[style-name='Heading 3'] => h3"
+            ],
+            convertImage: imageCallback
+          });
+
+          let html = mammothResult.value || '';
+          const warnings = mammothResult.messages || [];
+
+          // Optional normalization: smart punctuation -> ASCII
+          if (smartQuotesCheckbox.checked) {
+            html = html
+              .replace(/[“”]/g, '"')
+              .replace(/[‘’]/g, "'")
+              .replace(/—/g, '--')
+              .replace(/–/g, '-');
+          }
+
+          htmlPreview.innerHTML = html;
+          statsHtml.textContent = String(html.length);
+
+          status.textContent = 'Converting HTML to Markdown…';
+
+          // ✅ Correct global: TurndownService
+          const td = new TurndownService({
+            headingStyle: 'atx',
+            hr: '---',
+            codeBlockStyle: 'fenced',
+            bulletListMarker: '-',
+            emDelimiter: '*',
+            strongDelimiter: '**'
+          });
+
+          // Keep links/images tidy
+          td.addRule('unwrapEmptyLinks', {
+            filter: node => node.nodeName === 'A' && !node.textContent.trim(),
+            replacement: (content, node) => node.getAttribute('href') || ''
+          });
+
+          // Preserve figure captions (basic)
+          td.addRule('figureCaption', {
+            filter: node => node.nodeName === 'FIGCAPTION',
+            replacement: content => content ? `\n\n*${content}*\n\n` : '\n\n'
+          });
+
+          const markdown = td.turndown(html);
+          mdOut.value = markdown;
+          currentMd = markdown;
+
+          statsMd.textContent = String(markdown.length);
+          statsImg.textContent = String(imagesCollected.length);
+
+          copyBtn.disabled = false;
+          downloadMdBtn.disabled = false;
+          downloadAssetsBtn.disabled = imagesCollected.length === 0 || inlineImages;
+          status.textContent = warnings.length
+            ? `Done with ${warnings.length} warning(s).`
+            : 'Done.';
+        } catch (err) {
+          console.error(err);
+          status.textContent = 'Conversion failed. See console for details.';
+        }
+      });
+
+      // Copy Markdown
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(mdOut.value);
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => (copyBtn.textContent = 'Copy Markdown'), 1200);
+        } catch {
+          mdOut.select();
+          document.execCommand('copy');
+        }
+      });
+
+      // Download .md
+      downloadMdBtn.addEventListener('click', () => {
+        const blob = new Blob([mdOut.value], { type: 'text/markdown;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'document.md';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+
+      // Download images as zip (only when not inlined)
+      downloadAssetsBtn.addEventListener('click', async () => {
+        const zip = new JSZip();
+        const folder = zip.folder('assets');
+        for (const img of imagesCollected) {
+          const base64 = img.dataUrl.split(',')[1];
+          folder.file(img.filename, base64, { base64: true });
+        }
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'assets.zip';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
+    });
+  </script>
+</body>
+</html>
