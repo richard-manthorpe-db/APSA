@@ -5,50 +5,56 @@
   <meta charset="utf-8" />
   <title>Word (.docx) → Markdown Converter</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root { color-scheme: light dark; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; background: #0b0c0f; color: #e6e6e6; }
-    header { padding: 1rem 1.25rem; background: #11131a; border-bottom: 1px solid #1d2130; }
-    h1 { font-size: 1.25rem; margin: 0; }
-    main { padding: 1rem; display: grid; gap: 1rem; }
-    .panel { background: #121622; border: 1px solid #1d2130; border-radius: 10px; padding: 1rem; }
-    .row { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-    @media (min-width: 1024px) { .row { grid-template-columns: 1fr 1fr; } }
-    .dropzone { border: 2px dashed #2a3956; border-radius: 10px; padding: 1.25rem; text-align: center; cursor: pointer; background: #0e1320; }
-    .dropzone.drag { background: #11203a; border-color: #3a76ff; }
-    input[type="file"] { display: none; }
-    .controls { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
-    button, label.button { background: #2761ff; color: #fff; border: none; border-radius: 8px; padding: .6rem .9rem; cursor: pointer; font-weight: 600; }
-    button:disabled { opacity: .6; cursor: not-allowed; }
-    .secondary { background: #1f2434; color: #cdd7f7; }
-    .muted { color: #aab2c5; font-size: .9rem; }
-    textarea, .preview { width: 100%; min-height: 320px; background: #0b0f19; color: #e6e6e6; border: 1px solid #1d2130; border-radius: 10px; padding: .75rem; overflow: auto; }
-    .preview { line-height: 1.5; }
-    .status { font-size: .9rem; color: #aab2c5; margin-top: .5rem; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
-    code.kv { background: #0b0f19; border: 1px solid #1d2130; padding: .25rem .5rem; border-radius: 6px; }
-  </style>
-  <link rel="stylesheet" href="../header.css">
+
+  <!-- Your styles -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../header.css" />
+
   <!-- Libraries (load first) -->
-  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/turndown@7.1.2/dist/turndown.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
+  <script src="mammoth.browser.min.js" defer></script>
+  <script src="turndown.js" defer></script>
+  <script src="jszip.min.js" defer></script>
+
+  <!-- Markdown renderer (optional, local; falls back to tiny inline renderer if absent) -->
+  <script src="marked.min.js" defer></script>
+
+  <!-- Minimal styles for the file tree and small UX helpers -->
+  <style>
+    .file-tree {
+      max-height: 320px;
+      overflow: auto;
+      border: 1px solid #e5e5e5;
+      padding: .5rem .75rem;
+      border-radius: .375rem;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+    .file-tree details { margin-left: .5rem; }
+    .file-tree summary { cursor: pointer; user-select: none; }
+    .file-tree .file-btn {
+      background: none; border: 0; padding: 0 .15rem; margin: .1rem 0 .1rem 1.25rem;
+      color: var(--link, #0b57d0); cursor: pointer; text-align: left; font: inherit;
+    }
+    .file-tree .file-btn:hover { text-decoration: underline; }
+    .file-tree .muted { color: #888; }
+    .linklike { background: none; border: 0; color: var(--link, #0b57d0); cursor: pointer; padding: 0; }
+    @media (prefers-color-scheme: dark) {
+      .file-tree { border-color: #333; background: #181818; }
+    }
+  </style>
 </head>
 <body>
   <header>
-      <div id="header"></div>
-        <script>
-          fetch('../header.html')
-            .then(response => response.text())
-            .then(html => {
-              document.getElementById('header').innerHTML = html;
-            });
-        </script>
-      <div class="meta">
-        <h1>Word (.docx) → Markdown Converter</h1>
-      </div>
-      </header>
-
+    <div id="header"></div>
+    <script>
+      fetch('../header.html')
+        .then(r => r.text())
+        .then(html => { document.getElementById('header').innerHTML = html; });
+    </script>
+    <div class="meta">
+      <h1>Word (.docx) → Markdown Converter</h1>
+    </div>
+  </header>
 
   <main>
     <section class="panel">
@@ -57,6 +63,10 @@
         <label class="button" for="docxInput" id="chooseBtn">Choose file</label>
         <input id="docxInput" type="file" accept=".docx" />
         <div class="status" id="status">No file selected.</div>
+        <div class="muted" id="reopenHint" style="display:none;">
+          Permission lost. <button id="reopenBtn" class="linklike">Reopen folder</button>
+          or use the fallback <label for="folderInput" class="linklike">Pick a folder</label>.
+        </div>
       </div>
       <div class="controls" style="margin-top: .75rem;">
         <button id="convertBtn" disabled>Convert to Markdown</button>
@@ -75,7 +85,7 @@
         <textarea id="mdOut" placeholder="Converted Markdown will appear here…" readonly></textarea>
       </div>
       <div class="panel">
-        <h2 style="margin-top:0;">HTML preview (from Word)</h2>
+        <h2 style="margin-top:0;">HTML preview (from Word or Markdown)</h2>
         <div id="htmlPreview" class="preview"></div>
       </div>
     </section>
@@ -88,11 +98,26 @@
         <div><strong>Images</strong><div><code class="kv" id="statsImg">–</code></div></div>
       </div>
     </section>
+
+    <!-- Folder browser and directory tree for Markdown preview -->
+    <section class="panel">
+      <h2 style="margin-top:0;">Browse a folder of Markdown files</h2>
+      <div class="controls" style="margin-bottom:.5rem;">
+        <button id="openFolderBtn">Choose folder</button>
+        <label class="button secondary" for="folderInput">Or pick a folder</label>
+        <input id="folderInput" type="file" webkitdirectory directory multiple accept=".md" hidden />
+        <span class="muted">Click an <code>.md</code> file below to preview it on the right.</span>
+      </div>
+      <div id="fileTree" class="file-tree" aria-live="polite"></div>
+      <div class="muted" style="margin-top:.5rem;">
+        Tip: “Choose folder” uses the File System Access API (best in Chromium browsers).
+        “Pick a folder” works as a fallback in most modern browsers.
+      </div>
+    </section>
   </main>
 
   <!-- App code -->
   <script>
-    // Wait until the deferred library scripts are available
     window.addEventListener('DOMContentLoaded', () => {
       const input = document.getElementById('docxInput');
       const dropzone = document.getElementById('dropzone');
@@ -102,6 +127,9 @@
       const downloadAssetsBtn = document.getElementById('downloadAssetsBtn');
 
       const status = document.getElementById('status');
+      const reopenHint = document.getElementById('reopenHint');
+      const reopenBtn = document.getElementById('reopenBtn');
+
       const mdOut = document.getElementById('mdOut');
       const htmlPreview = document.getElementById('htmlPreview');
       const statsHtml = document.getElementById('statsHtml');
@@ -115,7 +143,7 @@
       let imagesCollected = []; // {filename, dataUrl}
       let currentMd = '';
 
-      // -- Drag & drop UX --
+      // Drag & drop UX
       ['dragenter','dragover'].forEach(evt =>
         dropzone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.add('drag'); })
       );
@@ -126,11 +154,9 @@
         const file = e.dataTransfer.files?.[0];
         if (file) await handleFile(file);
       });
-      //dropzone.addEventListener('click', () => input.click());
 
-      
       document.getElementById('chooseBtn').addEventListener('click', (e) => {
-      e.stopPropagation();
+        e.stopPropagation();
       });
 
       input.addEventListener('change', async (e) => {
@@ -158,11 +184,10 @@
         currentMd = '';
       }
 
-      // -- Convert flow: DOCX -> HTML (Mammoth) -> Markdown (TurndownService) --
+      // Convert flow: DOCX -> HTML (Mammoth) -> Markdown (TurndownService)
       convertBtn.addEventListener('click', async () => {
         if (!arrayBuffer) return;
 
-        // Configure Mammoth image handler
         const inlineImages = inlineImagesCheckbox.checked;
         imagesCollected = [];
         const imageCallback = inlineImages
@@ -201,7 +226,6 @@
           let html = mammothResult.value || '';
           const warnings = mammothResult.messages || [];
 
-          // Optional normalization: smart punctuation -> ASCII
           if (smartQuotesCheckbox.checked) {
             html = html
               .replace(/[“”]/g, '"')
@@ -215,7 +239,6 @@
 
           status.textContent = 'Converting HTML to Markdown…';
 
-          // ✅ Correct global: TurndownService
           const td = new TurndownService({
             headingStyle: 'atx',
             hr: '---',
@@ -225,13 +248,11 @@
             strongDelimiter: '**'
           });
 
-          // Keep links/images tidy
           td.addRule('unwrapEmptyLinks', {
             filter: node => node.nodeName === 'A' && !node.textContent.trim(),
             replacement: (content, node) => node.getAttribute('href') || ''
           });
 
-          // Preserve figure captions (basic)
           td.addRule('figureCaption', {
             filter: node => node.nodeName === 'FIGCAPTION',
             replacement: content => content ? `\n\n*${content}*\n\n` : '\n\n'
@@ -247,9 +268,7 @@
           copyBtn.disabled = false;
           downloadMdBtn.disabled = false;
           downloadAssetsBtn.disabled = imagesCollected.length === 0 || inlineImages;
-          status.textContent = warnings.length
-            ? `Done with ${warnings.length} warning(s).`
-            : 'Done.';
+          status.textContent = warnings.length ? `Done with ${warnings.length} warning(s).` : 'Done.';
         } catch (err) {
           console.error(err);
           status.textContent = 'Conversion failed. See console for details.';
@@ -293,6 +312,327 @@
         a.click();
         URL.revokeObjectURL(a.href);
       });
+
+      // ------------------ Directory tree for Markdown files (+ permission handling) ------------------
+      const openFolderBtn = document.getElementById('openFolderBtn');
+      const folderInput = document.getElementById('folderInput');
+      const fileTreeEl = document.getElementById('fileTree');
+
+      let handleMode = false;                // true when using File System Access API
+      let fileHandleByPath = new Map();      // path -> FileSystemFileHandle  (handleMode)
+      let fileBlobByPath = new Map();        // path -> File               (fallback mode)
+      let rootDirHandle = null;              // keep folder handle for permission checks
+
+      // Helper: verify/request read permission (should run within a user gesture)
+      async function ensurePermission(handle, mode = 'read') {
+        try {
+          if (!handle || typeof handle.queryPermission !== 'function') return true;
+          const opts = { mode };
+          let p = await handle.queryPermission(opts);
+          if (p === 'granted') return true;
+          if (p === 'prompt') {
+            p = await handle.requestPermission(opts);
+            return p === 'granted';
+          }
+          return false; // denied
+        } catch {
+          return true;  // some browsers don’t support these methods; assume OK
+        }
+      }
+
+      // Reopen hint wiring
+      reopenBtn?.addEventListener('click', () => openFolderBtn.click());
+      function showReopenHint(show) {
+        if (reopenHint) reopenHint.style.display = show ? '' : 'none';
+      }
+
+      openFolderBtn.addEventListener('click', async () => {
+        if ('showDirectoryPicker' in window) {
+          try {
+            if (!window.isSecureContext) {
+              status.textContent = 'This feature requires a secure context (https or http://localhost).';
+              showReopenHint(true);
+              return;
+            }
+            rootDirHandle = await window.showDirectoryPicker({ mode: 'read' });
+
+            const ok = await ensurePermission(rootDirHandle, 'read');
+            if (!ok) {
+              status.textContent = 'Permission to read this folder was not granted.';
+              showReopenHint(true);
+              return;
+            }
+
+            handleMode = true;
+            status.textContent = 'Building directory tree…';
+            fileHandleByPath.clear();
+            fileBlobByPath.clear();
+
+            const rootNode = await buildTreeFromDirectoryHandle(rootDirHandle, rootDirHandle.name);
+            renderTree(rootNode, fileTreeEl);
+            status.textContent = `Loaded folder: ${rootDirHandle.name}`;
+            showReopenHint(false);
+          } catch (e) {
+            if (e && e.name !== 'AbortError') {
+              console.error(e);
+              status.textContent = 'Unable to open folder.';
+              showReopenHint(true);
+            }
+          }
+        } else {
+          // Fallback to <input webkitdirectory>
+          folderInput.click();
+        }
+      });
+
+      folderInput.addEventListener('change', async (e) => {
+        const files = Array.from(e.target.files || []);
+        if (!files.length) return;
+        handleMode = false;
+        status.textContent = 'Building directory tree…';
+        fileHandleByPath.clear();
+        fileBlobByPath.clear();
+
+        const rootName = commonRootFolderName(files);
+        const rootNode = buildTreeFromFileList(files, rootName);
+        renderTree(rootNode, fileTreeEl);
+        status.textContent = `Loaded folder: ${rootName}`;
+        showReopenHint(false);
+      });
+
+      // Build a directory tree using the File System Access API
+      async function buildTreeFromDirectoryHandle(dirHandle, rootName) {
+        const node = { name: rootName || dirHandle.name, kind: 'directory', children: [], path: '' };
+
+        for await (const [name, entry] of dirHandle.entries()) {
+          if (entry.kind === 'file') {
+            if (!name.toLowerCase().endsWith('.md')) continue;
+            const path = name; // root-level file
+            fileHandleByPath.set(path, entry);
+            node.children.push({ name, kind: 'file', path });
+          } else if (entry.kind === 'directory') {
+            const sub = await buildTreeFromDirectoryHandleRecursive(entry, name);
+            node.children.push(sub);
+          }
+        }
+
+        sortTree(node);
+        return node;
+      }
+
+      async function buildTreeFromDirectoryHandleRecursive(dirHandle, basePath) {
+        const node = { name: dirHandle.name, kind: 'directory', children: [], path: basePath };
+        for await (const [name, entry] of dirHandle.entries()) {
+          const entryPath = `${basePath}/${name}`;
+          if (entry.kind === 'file') {
+            if (!name.toLowerCase().endsWith('.md')) continue;
+            fileHandleByPath.set(entryPath, entry);
+            node.children.push({ name, kind: 'file', path: entryPath });
+          } else {
+            const sub = await buildTreeFromDirectoryHandleRecursive(entry, entryPath);
+            node.children.push(sub);
+          }
+        }
+        sortTree(node);
+        return node;
+      }
+
+      // Build a directory tree from <input webkitdirectory> FileList
+      function buildTreeFromFileList(files, rootName) {
+        const root = { name: rootName || 'root', kind: 'directory', children: [], path: '' };
+        const dirMap = new Map(); // path -> node
+        dirMap.set('', root);
+
+        for (const f of files) {
+          if (!f.name.toLowerCase().endsWith('.md')) continue;
+
+          const rel = f.webkitRelativePath || f.name; // ✅ correct extraction
+          const parts = rel.split('/');
+
+          // Map each directory segment
+          let accPath = '';
+          for (let i = 0; i < parts.length - 1; i++) {
+            const p = parts[i];
+            const next = accPath ? `${accPath}/${p}` : p;
+            if (!dirMap.has(next)) {
+              const parent = dirMap.get(accPath);
+              const dirNode = { name: p, kind: 'directory', children: [], path: next };
+              parent.children.push(dirNode);
+              dirMap.set(next, dirNode);
+            }
+            accPath = next;
+          }
+
+          // Add the file node
+          const filePath = rel;
+          fileBlobByPath.set(filePath, f);
+          const parent = dirMap.get(accPath);
+          parent.children.push({ name: parts[parts.length - 1], kind: 'file', path: filePath });
+        }
+
+        sortTree(root);
+        return root;
+      }
+
+      function renderTree(node, container) {
+        container.innerHTML = '';
+        const treeEl = document.createElement('div');
+        treeEl.appendChild(renderNode(node));
+        container.appendChild(treeEl);
+      }
+
+      function renderNode(node) {
+        if (node.kind === 'file') {
+          const btn = document.createElement('button');
+          btn.className = 'file-btn';
+          btn.type = 'button';
+          btn.textContent = node.name;
+          btn.title = node.path;
+          btn.addEventListener('click', () => handleTreeFileClick(node.path));
+          return btn;
+        } else {
+          const details = document.createElement('details');
+          details.open = true;
+          const summary = document.createElement('summary');
+          summary.textContent = node.name;
+          details.appendChild(summary);
+          for (const child of node.children) {
+            const childEl = renderNode(child);
+            const wrapper = document.createElement('div');
+            wrapper.appendChild(childEl);
+            details.appendChild(wrapper);
+          }
+          return details;
+        }
+      }
+
+      function sortTree(node) {
+        if (!node.children) return;
+        node.children.sort((a, b) => {
+          if (a.kind !== b.kind) return a.kind === 'directory' ? -1 : 1;
+          return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+        });
+        for (const c of node.children) if (c.kind === 'directory') sortTree(c);
+      }
+
+      function commonRootFolderName(files) {
+        const paths = files.map(f => f.webkitRelativePath || f.name).filter(Boolean);
+        if (!paths.length) return 'folder';
+        const first = paths[0].split('/');
+        let i = 0;
+        for (; i < first.length - 1; i++) {
+          const segment = first[i];
+          if (!paths.every(p => p.split('/')[i] === segment)) break;
+        }
+        return (i > 0) ? first[0] : 'folder';
+      }
+
+      async function handleTreeFileClick(path) {
+        try {
+          // Re-check permission on the selected folder (covers children)
+          if (handleMode && rootDirHandle) {
+            const ok = await ensurePermission(rootDirHandle, 'read');
+            if (!ok) {
+              status.textContent = 'Folder permission was revoked. Please choose the folder again.';
+              showReopenHint(true);
+              return;
+            }
+          }
+
+          let md = '';
+          if (handleMode) {
+            const handle = fileHandleByPath.get(path);
+            if (!handle) {
+              status.textContent = 'Could not resolve file handle.';
+              return;
+            }
+            await ensurePermission(handle, 'read');
+            const file = await handle.getFile(); // may throw NotReadableError
+            md = await file.text();
+          } else {
+            const file = fileBlobByPath.get(path);
+            if (!file) {
+              status.textContent = 'Could not resolve file blob.';
+              return;
+            }
+            md = await file.text();
+          }
+
+          // Load into left textarea and enable copy/download
+          mdOut.value = md;
+          mdOut.readOnly = false;   // allow editing if desired
+          currentMd = md;
+          statsMd.textContent = String(md.length);
+
+          // Render Markdown -> HTML preview
+          const html = renderMarkdownToHtml(md);
+          htmlPreview.innerHTML = html;
+          statsHtml.textContent = String(html.length);
+
+          statsImg.textContent = '–'; // not applicable for plain MD
+          copyBtn.disabled = false;
+          downloadMdBtn.disabled = false;
+          downloadAssetsBtn.disabled = true;
+
+          status.textContent = `Loaded Markdown: ${path}`;
+          showReopenHint(false);
+          htmlPreview.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        } catch (e) {
+          console.error(e);
+          if (e && e.name === 'NotReadableError') {
+            status.textContent = 'Permission to read this file was revoked. Please choose the folder again.';
+            showReopenHint(true);
+          } else if (e && e.name === 'NotFoundError') {
+            status.textContent = 'The file appears to have moved or been deleted.';
+          } else {
+            status.textContent = 'Failed to load selected Markdown file.';
+          }
+        }
+      }
+
+      // Prefer marked.js if available; otherwise a minimal fallback.
+      function renderMarkdownToHtml(md) {
+        if (window.marked && typeof window.marked.parse === 'function') {
+          // For untrusted content, consider sanitizing with DOMPurify.
+          return window.marked.parse(md, { mangle: false, headerIds: true });
+        }
+        // Tiny fallback: escape + a few common patterns (not fully spec-compliant)
+        let safe = md
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+
+        // headings
+        safe = safe.replace(/^(#{1,6})\s*(.+)$/gm, (_, h, t) => `<h${h.length}>${t}</h${h.length}>`);
+
+        // horizontal rules
+        safe = safe.replace(/^\s*[-*_]{3,}\s*$/gm, '<hr>');
+
+        // bold/italic
+        safe = safe.replace(/\*\*([\s\S]+?)\*\*/g, '<strong>$1</strong>');
+        safe = safe.replace(/\*([\s\S]+?)\*/g, '<em>$1</em>');
+
+        // code fence
+        safe = safe.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+
+        // inline code
+        safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+        // links [text](href "title")
+        safe = safe.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g,
+     '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+        // simple lists (unordered)
+        safe = safe.replace(/^(?:\s*[-*+]\s+.+(?:\n|$))+?/gm, block => {
+          const items = block.trim().split(/\n/).map(line =>
+            line.replace(/^\s*[-*+]\s+(.+)$/, '<li>$1</li>')
+          ).join('');
+          return `<ul>${items}</ul>`;
+        });
+        
+        return safe;
+      }
+      // ------------------ End directory tree code ------------------
     });
   </script>
 </body>
